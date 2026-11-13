@@ -1,0 +1,142 @@
+:root { --ink: #24160a; --ink2: #3a2614; --rubric: #8f2416; --blue: #1f4e79; --gold: #a87a22; --vellum: #ecdcb2; }
+* { box-sizing: border-box; -webkit-print-color-adjust: exact; print-color-adjust: exact; }
+html, body { margin: 0; background: #2a1d12; color: var(--ink); font-family: Alegreya, Runic, Georgia, serif; font-weight: 500; }
+.toolbar { position: sticky; top: 0; z-index: 9; display: flex; gap: 14px; align-items: center; padding: 10px 16px; background: #1a120b; color: #f0dfb5; font-size: 15px; }
+.toolbar a { color: #f0dfb5; }
+.toolbar button { font: inherit; font-weight: 700; padding: 8px 14px; border: 0; border-radius: 6px; background: #e9c56c; color: #24160a; cursor: pointer; }
+#pages { display: flex; flex-direction: column; align-items: center; gap: 20px; padding: 20px 0 40px; }
+
+@page { size: A4 portrait; margin: 0; }
+@page land { size: A4 landscape; margin: 0; }
+.page { position: relative; width: 210mm; height: 297mm; overflow: hidden; padding: 18mm 16mm; page-break-after: always; break-after: page;
+  background-color: var(--vellum);
+  background-image: radial-gradient(130% 120% at 50% 45%, rgba(255,248,225,.45) 0%, rgba(255,248,225,0) 55%, rgba(120,72,20,.32) 100%), url(../img/parchment.jpg);
+  background-size: 100% 100%, 140mm 140mm; box-shadow: 0 10px 30px rgba(0,0,0,.6); }
+.page.land { page: land; width: 297mm; height: 210mm; padding: 0; }
+.frame { position: absolute; inset: 7mm; border: 1.2mm double var(--ink2); pointer-events: none; }
+.frame::after { content: ''; position: absolute; inset: 1.6mm; border: .35mm solid var(--rubric); }
+
+/* kort */
+.mapbig { position: absolute; inset: 9mm; }
+.mapbig svg { width: 100%; height: 100%; }
+.inset { position: absolute; left: 13mm; top: 13mm; width: 66mm; height: 55mm; border: .6mm solid var(--ink); background: #ecdcb2 url(../img/parchment.jpg); background-size: 140mm; box-shadow: 1mm 1mm 0 rgba(36,22,10,.25); }
+.inset svg { width: 100%; height: calc(100% - 7mm); }
+.inset-t { height: 7mm; line-height: 7mm; text-align: center; font-family: 'Fell SC', serif; font-size: 12pt; border-bottom: .4mm solid var(--ink); color: var(--rubric); }
+.mapsvg .lbl { font-family: Fell, serif; font-style: italic; font-size: 46px; fill: var(--ink); text-anchor: middle; paint-order: stroke; stroke: rgba(236,220,178,.9); stroke-width: 6px; }
+.mapsvg .lbl-sm { font-size: 34px; }
+.mapsvg .lbl-xs { font-size: 22px; }
+.mapsvg .lbl-road { font-family: 'Fell SC', serif; font-style: normal; font-size: 24px; fill: var(--rubric); letter-spacing: .12em; }
+.mapsvg .hic { font-size: 28px; fill: var(--rubric); }
+.mapsvg .rose-l { font-family: 'Fell SC', serif; font-size: 22px; fill: var(--ink); text-anchor: middle; }
+.mapsvg .cart-t { font-family: Fraktur, serif; font-size: 50px; fill: var(--rubric); text-anchor: middle; }
+.mapsvg .cart-s { font-family: Fell, serif; font-style: italic; font-size: 28px; fill: var(--ink); text-anchor: middle; }
+.mapsvg .scale-t { font-family: Fell, serif; font-style: italic; font-size: 20px; fill: var(--ink); text-anchor: middle; }
+.printmap .labels-small, .printmap .labels-mid { display: none; }
+.insetmap .labels-big, .insetmap .rose, .insetmap .trolls { display: none; }
+.insetmap .lbls { font-family: Fell, serif; font-style: italic; font-size: 6.4px; fill: var(--ink); text-anchor: middle; paint-order: stroke; stroke: rgba(236,220,178,.95); stroke-width: 1.6px; }
+.insetmap .lbls-pot { fill: var(--blue); font-size: 5.4px; }
+.insetmap .lblm { font-family: Fell, serif; font-style: italic; font-size: 7.4px; fill: var(--ink); text-anchor: middle; paint-order: stroke; stroke: rgba(236,220,178,.95); stroke-width: 1.8px; }
+.steam { display: none; }
+
+/* sameiginlegt */
+.ph { font-family: 'Fell SC', serif; font-weight: 400; font-size: 26pt; color: var(--rubric); text-align: center; margin: 2mm 0 1mm; }
+.pn { text-align: center; font-style: italic; font-size: 12pt; margin: 0 0 6mm; color: var(--ink2); }
+.pn.center { margin-top: 8mm; }
+.cut { border-top: .5mm dashed var(--ink2); margin: 7mm -6mm; position: relative; }
+.cut::before { content: '✂'; position: absolute; left: 0; top: -4.2mm; font-size: 14pt; background: transparent; }
+.field { border-bottom: .4mm solid var(--ink); height: 9mm; margin: 2mm 0 3mm; font-size: 13pt; display: flex; align-items: flex-end; padding-bottom: 1mm; }
+.field.big { height: 11mm; }
+.cert { position: relative; border: .8mm solid var(--ink); outline: .3mm solid var(--rubric); outline-offset: -2.2mm; padding: 7mm 8mm; background: rgba(255,248,225,.3); }
+
+/* eftirlýstur */
+.wanted { text-align: center; padding-top: 4mm; }
+.w-top { font-family: Fraktur, serif; font-size: 66pt; line-height: 1; color: var(--rubric); }
+.w-sub { font-family: Fell, serif; font-style: italic; font-size: 16pt; margin-top: 1mm; }
+.w-img { width: 108mm; height: 108mm; margin: 6mm auto 4mm; border: 1.4mm solid var(--ink); outline: .4mm solid var(--ink); outline-offset: 1.6mm; overflow: hidden; }
+.w-img img { width: 100%; height: 100%; object-fit: cover; object-position: center 22%; filter: sepia(.75) contrast(1.15); }
+.w-name { font-family: 'Fell SC', serif; font-size: 34pt; }
+.w-list { list-style: none; padding: 0; margin: 4mm 6mm; text-align: left; font-size: 14pt; line-height: 1.45; }
+.w-list li::before { content: '❦ '; color: var(--rubric); }
+.w-reward { font-family: 'Fell SC', serif; font-size: 20pt; margin-top: 4mm; border-top: .4mm solid var(--ink); border-bottom: .4mm solid var(--ink); padding: 2mm 0; }
+.w-reward span { color: var(--rubric); }
+.w-sign { font-family: Fell, serif; font-style: italic; font-size: 14pt; text-align: right; margin: 5mm 6mm 0; }
+
+/* skírteini */
+.badge { height: 112mm; }
+.b-head { display: flex; align-items: center; gap: 4mm; border-bottom: .5mm solid var(--ink); padding-bottom: 3mm; }
+.b-ico { font-size: 28pt; }
+.b-t { font-family: Fraktur, serif; font-size: 34pt; line-height: 1; color: #2f5d34; }
+.b-s { font-family: 'Fell SC', serif; font-size: 13pt; }
+.b-body { display: flex; gap: 6mm; margin-top: 5mm; }
+.b-photo { position: relative; width: 50mm; height: 62mm; flex: none; border: .8mm solid var(--ink); overflow: hidden; }
+.b-photo img { width: 100%; height: 100%; object-fit: cover; object-position: center 20%; filter: sepia(.7); }
+.b-stamp { position: absolute; left: 50%; top: 52%; transform: translate(-50%,-50%) rotate(-18deg); font-family: 'Fell SC', serif; font-size: 22pt; color: var(--rubric); border: .8mm solid var(--rubric); padding: 0 3mm; background: rgba(236,220,178,.55); }
+.b-fields { flex: 1; font-size: 13pt; }
+.b-fields p { margin: 2mm 0; }
+.b-date { font-style: italic; }
+.b-seal { position: absolute; right: 8mm; bottom: 7mm; width: 20mm; height: 20mm; border-radius: 50%; display: grid; place-items: center; font-family: Runic, serif; font-size: 22pt; color: #f3dfb0; background: radial-gradient(circle at 40% 35%, #b5402a, #7a1d10); box-shadow: 0 0 0 1mm #7a1d10, inset 0 0 0 1mm rgba(0,0,0,.2); }
+
+/* rúnameistarabréf */
+.diploma { height: 112mm; text-align: center; }
+.d-runes { font-family: Runic, serif; font-size: 14pt; letter-spacing: .25em; color: var(--rubric); }
+.d-t { font-family: Fraktur, serif; font-size: 40pt; line-height: 1.05; color: var(--rubric); }
+.d-t.sm { font-size: 30pt; margin-bottom: 3mm; }
+.d-body { display: flex; gap: 6mm; text-align: left; margin-top: 3mm; font-size: 13pt; }
+.d-body img { width: 46mm; height: 58mm; object-fit: cover; object-position: center 30%; border: .8mm solid var(--ink); filter: sepia(.6); flex: none; }
+.d-body > div { flex: 1; }
+.d-body p { margin: 1.5mm 0; }
+.d-sign { position: absolute; right: 9mm; bottom: 6mm; font-family: Fell, serif; font-style: italic; font-size: 14pt; }
+
+/* rúnalykill */
+.keycard { text-align: center; }
+.rkey { display: grid; grid-template-columns: repeat(8, 1fr); gap: 2mm; }
+.rkey div { display: flex; flex-direction: column; align-items: center; padding: 1.5mm 0; border: .3mm solid var(--ink2); background: rgba(255,248,225,.45); }
+.rkey b { font-family: Runic, serif; font-weight: 400; font-size: 22pt; line-height: 1.1; color: var(--rubric); }
+.rkey span { font-weight: 800; font-size: 12pt; }
+.kc-n { margin: 3mm 0 0; font-style: italic; font-size: 12pt; }
+
+/* stöðvamiðar */
+.slip { position: relative; padding: 2mm 4mm; }
+.slip-l { font-family: 'Fell SC', serif; font-size: 11pt; color: var(--rubric); margin-bottom: 2mm; }
+.mirror { transform: scaleX(-1); font-family: 'Fell SC', serif; font-size: 30pt; text-align: center; line-height: 1.25; padding: 3mm 0; }
+.mirror b { font-weight: 400; color: var(--rubric); font-size: 38pt; }
+.prunes { font-family: Runic, serif; font-size: 36pt; text-align: center; letter-spacing: .1em; line-height: 1.5; }
+.psig { font-family: Runic, Fell, serif; text-align: right; font-size: 20pt; margin: 0; }
+.letterslip p { font-family: Fell, serif; font-style: italic; font-size: 15pt; margin: 0 0 2mm; }
+.riddle { font-family: 'Fell SC', serif !important; font-style: normal !important; font-size: 20pt !important; text-align: center; padding: 2mm 0; color: var(--ink); }
+.ptags { display: grid; grid-template-columns: repeat(3, 1fr); gap: 4mm; margin-top: 4mm; }
+.ptag { display: flex; flex-direction: column; align-items: center; justify-content: center; height: 50mm; border: .6mm dashed var(--ink2); background: rgba(255,248,225,.35); }
+.tm { font-family: Runic, serif; font-size: 36pt; line-height: 1; color: var(--rubric); }
+.tl { font-family: 'Fell SC', serif; font-size: 60pt; line-height: 1; }
+
+/* bréf Drumbs */
+.trolletter { position: relative; margin: 10mm 6mm 0; padding: 12mm 12mm 10mm; border: .5mm solid var(--ink2); transform: rotate(-1.2deg); background: rgba(255,248,225,.35); font-family: Fell, serif; font-style: italic; font-size: 22pt; line-height: 1.35; }
+.trolletter img { float: right; width: 52mm; height: 52mm; margin: 0 0 4mm 6mm; border-radius: 50%; object-fit: cover; object-position: center 22%; filter: sepia(.65); border: 1mm solid var(--ink2); }
+.trolletter p { margin: 0 0 5mm; }
+.smudge { position: absolute; left: 18mm; bottom: 16mm; width: 30mm; height: 18mm; border-radius: 50%; background: radial-gradient(closest-side, rgba(70,50,20,.25), transparent); transform: rotate(-20deg); }
+
+/* viðurkenning */
+.award { text-align: center; padding: 6mm 10mm 0; }
+.a-t { font-family: Fraktur, serif; font-size: 56pt; line-height: 1; color: var(--rubric); margin-top: 2mm; }
+.a-s { font-family: 'Fell SC', serif; font-size: 22pt; margin: 1mm 0 4mm; }
+.award img { width: 78mm; height: 78mm; object-fit: cover; border: 1mm solid var(--ink); filter: sepia(.5); }
+.award p { font-size: 15pt; margin: 3mm 0; }
+.award .field { margin: 1mm 12mm 2mm; height: 10mm; }
+.a-signs { display: flex; justify-content: space-between; margin: 10mm 6mm 0; font-family: Fell, serif; font-style: italic; font-size: 15pt; }
+.a-signs span { font-size: 11pt; }
+
+@media print {
+  html, body { background: none; }
+  .toolbar { display: none; }
+  #pages { display: block; padding: 0; }
+  .page { box-shadow: none; margin: 0; }
+}
+.mapsvg .lbl-estate { font-family: 'Fell SC', serif; font-style: normal; font-size: 70px; fill: #8f2416; opacity: .8; letter-spacing: .25em; }
+.hand { font-family: Fell, serif; font-style: italic; font-size: 20pt; color: #1f3a66; margin-left: 3mm; }
+.field.big .hand { font-size: 24pt; }
+.award .field { justify-content: center; }
+.mrunes { font-family: Runic, serif; font-size: 34pt; letter-spacing: .08em; line-height: 1.5; color: var(--ink); }
+.mrunes span { white-space: nowrap; }
+.mirror-sig { transform: scaleX(-1); text-align: left; }
+.wheelkey { font-family: Fell, serif; font-style: italic; font-size: 14pt; text-align: center; margin: 0 0 2mm; }
+.pcaesar { font-family: 'Fell SC', serif; font-size: 34pt; text-align: center; letter-spacing: .12em; line-height: 1.3; }

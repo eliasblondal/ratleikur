@@ -1,0 +1,9 @@
+@font-face{font-family:'Fraktur';font-style:normal;font-weight:400;font-display:swap;src:url(../fonts/unifrakturmaguntia-latin-400-normal.woff2) format('woff2');}
+@font-face{font-family:'Fell SC';font-style:normal;font-weight:400;font-display:swap;src:url(../fonts/im-fell-english-sc-latin-400-normal.woff2) format('woff2');}
+@font-face{font-family:'Fell';font-style:normal;font-weight:400;font-display:swap;src:url(../fonts/im-fell-english-latin-400-normal.woff2) format('woff2');}
+@font-face{font-family:'Fell';font-style:italic;font-weight:400;font-display:swap;src:url(../fonts/im-fell-english-latin-400-italic.woff2) format('woff2');}
+@font-face{font-family:'Alegreya';font-style:normal;font-weight:500;font-display:swap;src:url(../fonts/alegreya-latin-500-normal.woff2) format('woff2');}
+@font-face{font-family:'Alegreya';font-style:normal;font-weight:700;font-display:swap;src:url(../fonts/alegreya-latin-700-normal.woff2) format('woff2');}
+@font-face{font-family:'Alegreya';font-style:normal;font-weight:800;font-display:swap;src:url(../fonts/alegreya-latin-800-normal.woff2) format('woff2');}
+@font-face{font-family:'Alegreya';font-style:italic;font-weight:500;font-display:swap;src:url(../fonts/alegreya-latin-500-italic.woff2) format('woff2');}
+@font-face{font-family:'Runic';font-style:normal;font-weight:400;font-display:swap;src:url(../fonts/noto-sans-runic-runic-400-normal.woff2) format('woff2');unicode-range:U+16A0-16F8;}
