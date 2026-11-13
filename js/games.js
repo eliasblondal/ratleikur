@@ -7,7 +7,7 @@
   G.flashlight = function (el, o, win) {
     const n = o.count || 4, emoji = o.emoji || '🧝', label = o.label || 'álfa';
     el.innerHTML = `<div class="g-flash"><div class="gf-scene" style="background-image:url(${o.bg || 'img/hero-base.webp'})"></div>
-      <div class="gf-things"></div><canvas></canvas><div class="gf-count">Fundnir: <b>0</b> af ${n}</div><div class="gf-tip">Dragðu fingurinn um myrkrið 🔦</div></div>`;
+      <div class="gf-things"></div><canvas></canvas><div class="gf-count">${o.countLabel || 'Fundnir'}: <b>0</b> af ${n}</div><div class="gf-tip">Dragðu fingurinn um myrkrið 🔦</div></div>`;
     const box = $('.g-flash', el), cv = $('canvas', el), ctx = cv.getContext('2d'), things = $('.gf-things', el), cnt = $('.gf-count b', el);
     let W, H, px = -999, py = -999, found = 0, alive = true, pts = [];
     function size() { const r = box.getBoundingClientRect(); W = cv.width = r.width; H = cv.height = r.height; }
@@ -53,8 +53,8 @@
 
   /* ============ 2. HRISTU! — hristu símann til að lýsa á tröllið (eða pikkaðu hratt) ============ */
   G.shake = function (el, o, win) {
-    el.innerHTML = `<div class="g-shake"><div class="gs-troll"><img src="img/troll.webp?v=1794565002" alt=""><div class="gs-flash"></div></div>
-      <div class="gs-bar"><i></i></div><div class="gs-info">Drumbur rumskar! Hristið símann eins fast og þið getið til að blinda hann með töfraljósi!</div>
+    el.innerHTML = `<div class="g-shake"><div class="gs-troll"><img src="img/troll.webp?v=1794571856" alt=""><div class="gs-flash"></div></div>
+      <div class="gs-bar"><i></i></div><div class="gs-info">Þegar þið eruð komin alveg að Drumbi: hristið símann eins fast og þið getið til að blinda hann með töfraljósi!</div>
       <button class="btn big gs-go">💥 Byrja að hrista</button></div>`;
     const bar = $('.gs-bar i', el), img = $('.gs-troll img', el), fl = $('.gs-flash', el), info = $('.gs-info', el);
     let power = 0, done = false, last = null, alive = true;

@@ -41,7 +41,8 @@
 
   function fill(text) {
     const s = settings();
-    return text.replace('{steps}', s.compassSteps).replace('{dir}', `${dirName(s.compassDeg)} (${s.compassDeg}°)`).replace('{keyplace}', s.girlsKeyPlace);
+    return text.replace('{steps}', s.compassSteps).replace('{dir}', `${dirName(s.compassDeg)} (${s.compassDeg}°)`).replace('{keyplace}', s.girlsKeyPlace)
+      .replace('{riddlehint}', () => (D.riddleHints || [])[+String(s.lockCode)[2]] || 'Lesið gátuna hægt og teljið eitt í einu.');
   }
 
   function toast(msg, ms = 2600) {
@@ -97,20 +98,20 @@
     const st = k => p[k] ? (p[k].done ? 'Lokið ✓' : `Stöð ${p[k].i + 1} af ${D[k].stations.length}`) : `${D[k].stations.length} stöðvar`;
     app.innerHTML = `
     <div class="screen home">
-      <div class="hero"><div class="h-stage"><img class="h-base" src="img/hero-base.webp?v=1794565002" alt=""><img class="h-aur a1" src="img/hero-aurora.webp?v=1794565002" alt=""><img class="h-aur a2" src="img/hero-aurora.webp?v=1794565002" alt=""></div><div class="hero-fade"></div></div>
+      <div class="hero"><div class="h-stage"><img class="h-base" src="img/hero-base.webp?v=1794571856" alt=""><img class="h-aur a1" src="img/hero-aurora.webp?v=1794571856" alt=""><img class="h-aur a2" src="img/hero-aurora.webp?v=1794571856" alt=""></div><div class="hero-fade"></div></div>
       <div class="home-title">
         <div class="runeline">ᛊᛁᛚᚠᚢᚱ ᛫ ᚲᛖᛏᛁᛚᛊ ᛫ ᚺᚫᚾᚷᛊ</div>
         <h1 class="fraktur">Silfur Ketils hængs</h1>
         <p class="tag">Ratleikur á Stillu</p>
       </div>
-      <button class="introbtn"><img src="img/hero-base.webp?v=1794565002" alt=""><span class="ib-play">▶</span><span class="ib-txt">Sagan hefst · horfið saman</span></button>
+      <button class="introbtn"><img src="img/hero-base.webp?v=1794571856" alt=""><span class="ib-play">▶</span><span class="ib-txt">Sagan hefst · horfið saman</span></button>
       <div class="teams">
         <a class="teamcard tc-troll" href="#/lid/trollar">
-          <img src="img/troll.webp?v=1794565002" alt="">
+          <img src="img/troll.webp?v=1794571856" alt="">
           <div class="tc-body"><div class="tc-name cinzel">Tröllaspæjararnir</div><div class="tc-kids">Jóhann og Hólmar</div><div class="tc-sub">Rekið slóð tröllsins og náið lyklinum</div><div class="tc-meta">${st('trollar')}</div></div>
         </a>
         <a class="teamcard tc-rune" href="#/lid/runir">
-          <img src="img/ketill.webp?v=1794565002" alt="">
+          <img src="img/ketill.webp?v=1794571856" alt="">
           <div class="tc-body"><div class="tc-name cinzel">Rúnameistararnir</div><div class="tc-kids">Katrín og Aría</div><div class="tc-sub">Ráðið í rúnir Ketils og finnið lykilinn hans</div><div class="tc-meta">${st('runir')}</div></div>
         </a>
       </div>
@@ -122,7 +123,7 @@
 
   /* ---------- Myndbönd í fullum skjá (iPhone portrait) ---------- */
   const VIDS = { trollar: ['210', '211', '212', '213', '214', '215'], runir: ['220', '221', '222', '223', '224', '225', '226'], finale: '230' };
-  const VV = '?v=1794565002';
+  const VV = '?v=1794571856';
   function vidSrc(id) { return `video/ok-${id}.mp4${VV}`; }
   function prefetchVid(id) { if (!id || settings().videos === false) return; try { fetch(vidSrc(id), { priority: 'low' }).catch(() => { }); } catch (e) { } }
   function playVideo(src, onEnd, opts = {}) {
@@ -193,8 +194,8 @@
   const Voice = (() => {
     let man = null, unlocked = false, timer = 0;
     const el = new Audio(); el.preload = 'auto'; el.setAttribute('playsinline', '');
-    fetch('audio/voice.json?v=1794565002').then(r => r.json()).then(j => { man = j; document.documentElement.classList.add('has-voice'); }).catch(() => { });
-    const src = t => man && man[t] ? 'audio/' + man[t] + '?v=1794565002' : null;
+    fetch('audio/voice.json?v=1794571856').then(r => r.json()).then(j => { man = j; document.documentElement.classList.add('has-voice'); }).catch(() => { });
+    const src = t => man && man[t] ? 'audio/' + man[t] + '?v=1794571856' : null;
     // iOS: opna hljóðið í fyrstu snertingu svo síðari upplestur virki sjálfkrafa
     const unlock = () => {
       if (unlocked) return; unlocked = true;
@@ -299,7 +300,7 @@
           <div class="answer"></div>
           <div class="feedback" aria-live="polite"></div>
           <button class="hintbtn">💡 Vísbending</button>
-          <p class="hint hidden">${st.hint}</p>
+          <p class="hint hidden">${fill(st.hint)}</p>
         `}
       </section>
     </div>`;
@@ -322,15 +323,16 @@
       });
       return;
     }
-    $('.hintbtn').addEventListener('click', e => { $('.hint').classList.remove('hidden'); e.target.remove(); FX.sound.tap(); Voice.play(st.hint); });
+    $('.hintbtn').addEventListener('click', e => { $('.hint').classList.remove('hidden'); e.target.remove(); FX.sound.tap(); Voice.play(fill(st.hint)); });
     buildTool(team, st, $('.tool'));
     buildAnswer(team, st, p, $('.answer'));
     if (st.game && window.GAMES[st.game]) {
       const gated = st.gate !== false, done = (p.games || {})[p.i];
-      const reveal = () => { if (st.gameWin) { const w = $('.gamewin'); w.textContent = fill(st.gameWin); w.classList.remove('hidden'); } $('.answer').classList.remove('hidden'); $('.hintbtn') && $('.hintbtn').classList.remove('hidden'); };
+      // toolAfterGame: tólið (t.d. ratsjáin) birtist fyrst þegar leikurinn er leystur, á eftir gameWin-textanum
+      const reveal = () => { if (st.gameWin) { const w = $('.gamewin'); w.textContent = fill(st.gameWin); w.classList.remove('hidden'); } if (st.toolAfterGame) { const tl = $('.tool'); $('.answer').before(tl); tl.classList.remove('hidden'); } $('.answer').classList.remove('hidden'); $('.hintbtn') && $('.hintbtn').classList.remove('hidden'); };
       if (gated && done) { $('.game').innerHTML = '<div class="g-done">✓ Leyst!</div>'; reveal(); }
       else {
-        if (gated) { $('.answer').classList.add('hidden'); }
+        if (gated) { $('.answer').classList.add('hidden'); if (st.toolAfterGame) $('.tool').classList.add('hidden'); }
         const stop = window.GAMES[st.game]($('.game'), st.gameOpts || {}, () => {
           p.games = p.games || {}; p.games[p.i] = true; setProg(team, p);
           FX.sound.success();
@@ -426,7 +428,7 @@
   }
 
   function trollPeek() {
-    const t = document.createElement('div'); t.className = 'peek'; t.innerHTML = `<img src="img/troll.webp?v=1794565002" alt=""><div class="bubble">Hehe!</div>`;
+    const t = document.createElement('div'); t.className = 'peek'; t.innerHTML = `<img src="img/troll.webp?v=1794571856" alt=""><div class="bubble">Hehe!</div>`;
     document.body.appendChild(t); setTimeout(() => t.remove(), 2200);
   }
 
@@ -618,7 +620,7 @@
   function toolSneak(el) {
     el.innerHTML = `
       <div class="sneak">
-        <div class="sn-troll"><img src="img/troll.webp?v=1794565002" alt=""><div class="zzz"><span>z</span><span>z</span><span>Z</span></div><div class="sn-wake">HVAÐ?!</div></div>
+        <div class="sn-troll"><img src="img/troll.webp?v=1794571856" alt=""><div class="zzz"><span>z</span><span>z</span><span>Z</span></div><div class="sn-wake">HVAÐ?!</div></div>
         <div class="sn-meter"><div class="sn-bar"></div><div class="sn-line"></div></div>
         <div class="sn-info">Hljóðmælirinn sýnir hvort Drumbur heyrir í ykkur.</div>
         <div class="sn-row"><button class="chip sn-mic">🎤 Hljóðmælir</button><button class="chip sn-snore">🔊 Hrotur</button></div>
@@ -655,7 +657,8 @@
 
   /* ================= LOKASTÖÐ ================= */
   function renderFinale(team, p) {
-    const waitTxt = `Kistan er hér! En hún er læst með TVEIMUR lásum. Hvorugt liðið getur opnað hana eitt. Bíðið eftir ${team === 'trollar' ? D.runir.kidsDat : D.trollar.kidsDat}.`;
+    const other = team === 'trollar' ? 'runir' : 'trollar', O = D[other];
+    const waitTxt = team === 'trollar' ? D.finale.waitTrollar : D.finale.waitRunir;
     const openTxt = 'Hvort lið opnar sinn lás. Stingið lyklunum í og snúið! Þegar báðir lásarnir eru opnir…';
     prefetchVid(VIDS.finale);
     const T = D[team], st = T.stations[p.i], s = settings();
@@ -670,13 +673,15 @@
         ${ph === 'travel' ? `
           <p class="story">${st.travel} ${speakBtn(st.travel)}</p>
           <button class="btn big arrive">Við erum komin að pottinum! 📍</button>` : `
-          <div class="chest"><img src="img/kista.webp?v=1794565002" alt=""><div class="chest-glow"></div></div>
+          <div class="chest"><img src="img/kista.webp?v=1794571856" alt=""><div class="chest-glow"></div></div>
           <div class="locks">
             <div class="lock ${team === 'trollar' ? 'mine' : ''}"><span class="lk-i">🔑</span><b>Lás Drumbs</b><small>${team === 'trollar' ? 'Þið eruð með lykilinn hans Drumbs!' : D.trollar.kidsNom + ' eru með lykil Drumbs'}</small></div>
             <div class="lock ${team === 'runir' ? 'mine' : ''}"><span class="lk-i">🗝️</span><b>Lás Ketils</b><small>${team === 'runir' ? 'Þið eruð með lykil Ketils!' : D.runir.kidsNom + ' eru með lykil Ketils'}</small></div>
           </div>
           ${ph === 'wait' ? `
             <p class="story">${waitTxt} ${speakBtn(waitTxt)}</p>
+            <div class="other-status">📡 <span>Hvar eru ${O.kidsNom}? Leita…</span></div>
+            ${team === 'trollar' ? `<div class="guard-wrap"><div class="game guard"></div><div class="guard-done hidden">🛡️ Kistan er örugg! <button class="chip guard-again">Passa aftur 🔦</button></div></div>` : ''}
             <button class="btn big both">Bæði liðin eru komin! 🤝</button>` : `
             <p class="story">${openTxt} ${speakBtn(openTxt)}</p>
             <button class="btn big huge open">✨ KISTAN ER OPIN! ✨</button>`}
@@ -689,7 +694,35 @@
       requestAnimationFrame(() => map.render({ done: T.stations.slice(0, p.i).map(x => x.place), target: st.place, prev: T.stations[p.i - 1].place, icon: '🔥' }));
       $('.arrive').addEventListener('click', () => { FX.sound.chime(); Remote.send({ cmd: 'progress', from: team, team, i: p.i, title: st.title, phase: 'arrived' }); p.phase = 'task'; p.fphase = 'wait'; setProg(team, p); renderFinale(team, p); });
     }
-    const both = $('.both'); if (both) both.addEventListener('click', () => { FX.sound.fanfare(); p.fphase = 'open'; setProg(team, p); renderFinale(team, p); });
+    if (ph === 'wait') {
+      // Biðin: sýna hvar hitt liðið er (frá ntfy-rásinni) og lítill varðleikur fyrir strákana
+      const os = $('.other-status span'), on = O.stations.length, who = O.kidsNom;
+      const komin = other === 'runir' ? 'komnar' : 'komnir', bunin = other === 'runir' ? 'Búnar' : 'Búnir';
+      let lastAt = 0, here = false;
+      const since = Math.floor((p.startedAt || Date.now()) / 1000) - 2 * 3600;
+      const stopListen = Remote.listen(m => {
+        if (m.cmd !== 'progress' || m.team !== other || (m.at || 0) < lastAt) return;
+        lastAt = m.at || 0;
+        if (m.i >= on - 1) {
+          os.textContent = `${who} eru ${komin} að pottinum! 🎉`;
+          if (!here) { here = true; FX.sound.chime(); FX.vibrate([80, 40, 80]); toast(`${O.kidsNom} eru ${komin}!`, 4000); const b = $('.both'); if (b) b.style.animation = 'pulse 1.6s ease-in-out infinite'; }
+        } else if (m.i === on - 2 && m.phase === 'done') os.textContent = `${who} eru á leiðinni að pottinum!`;
+        else os.textContent = `${who}: ${m.phase === 'done' ? bunin.toLowerCase() + ' með' : 'á'} stöð ${m.i + 1} af ${on} (${m.title})`;
+      }, ok => { if (!ok && !lastAt) os.textContent = `Hvar eru ${who}? Ekkert samband við netið.`; else if (ok && !lastAt) os.textContent = `Hvar eru ${who}? Ekki vitað enn.`; }, since);
+      onCleanup(stopListen);
+      const noNews = setTimeout(() => { if (!lastAt) os.textContent = `Hvar eru ${who}? Ekki vitað enn.`; }, 10000); onCleanup(() => clearTimeout(noNews));
+      const g = $('.guard');
+      if (g) {
+        const startGuard = () => {
+          $('.guard-done').classList.add('hidden');
+          const stop = window.GAMES.flashlight(g, { count: 5, emoji: '🧌', countLabel: 'Fundin' }, () => { FX.sound.success(); $('.guard-done').classList.remove('hidden'); });
+          if (typeof stop === 'function') onCleanup(stop);
+        };
+        startGuard();
+        $('.guard-again').addEventListener('click', startGuard);
+      }
+    }
+    const both = $('.both'); if (both) both.addEventListener('click', () => { cleanup(); FX.sound.fanfare(); p.fphase = 'open'; setProg(team, p); renderFinale(team, p); });
     const open = $('.open'); if (open) open.addEventListener('click', () => {
       if (settings().videos !== false) { FX.sound.unlock(); playVideo(vidSrc(VIDS.finale), () => celebrate(team, p), { skipText: 'Áfram ➜' }); }
       else celebrate(team, p);
@@ -707,8 +740,8 @@
     app.innerHTML = `
     <div class="screen celebrate">
       <div class="cel-title"><div class="runeline">ᛊᛁᛚᚠᚢᚱ ᛫ ᚠᚢᚾᛞᛁᛞ</div><h1 class="fraktur">Silfrið er fundið!</h1></div>
-      <div class="chest open"><img src="img/kista.webp?v=1794565002" alt=""><div class="chest-glow"></div></div>
-      <div class="letter"><img src="img/troll.webp?v=1794565002" alt="" class="letter-troll">${L.map(l => `<p>${l.replace(/\n/g, '<br>')}</p>`).join('')}</div>
+      <div class="chest open"><img src="img/kista.webp?v=1794571856" alt=""><div class="chest-glow"></div></div>
+      <div class="letter"><img src="img/troll.webp?v=1794571856" alt="" class="letter-troll">${L.map(l => `<p>${l.replace(/\n/g, '<br>')}</p>`).join('')}</div>
       <p class="sig cinzel">Og frá mér: takk, kæru Jóhann, Hólmar, Katrín og Aría. Silfrið er ykkar.<br>ᛝ Ketill hængur</p>
       <button class="btn more">🎆 Meiri flugeldar!</button>
       <a class="btn ghost" href="#/">Heim</a>
@@ -739,8 +772,8 @@
       send(obj) {
         try { return fetch(base, { method: 'POST', body: JSON.stringify(Object.assign({ at: Date.now(), sid }, obj)) }).catch(() => { }); } catch (e) { }
       },
-      listen(cb, onStatus) {
-        let es; try { es = new EventSource(base + '/sse'); } catch (e) { onStatus && onStatus(false); return () => { }; }
+      listen(cb, onStatus, since) {
+        let es; try { es = new EventSource(base + '/sse' + (since ? '?since=' + since : '')); } catch (e) { onStatus && onStatus(false); return () => { }; }
         es.onopen = () => onStatus && onStatus(true);
         es.onerror = () => { if (es.readyState === 2) onStatus && onStatus(false); };
         es.onmessage = e => {
@@ -876,46 +909,68 @@
   const lockDigits = s => String(s.lockCode).split('');
 
   const PREP = s => {
-    const L = lockDigits(s), col = D.colors[s.treeColor].pl;
+    const L = lockDigits(s), col = D.colors[s.treeColor].pl, colDat = { graenn: 'grænum', raudur: 'rauðum', blar: 'bláum', gulur: 'gulum' }[s.treeColor] || '';
     return [
-      { h: 'Að kaupa', items: [
-        'Ljósastafir (glowsticks): um 50 stk. í nokkrum litum, helst með armbandstengjum',
+      { h: '1. Að kaupa', items: [
+        'Ljósastafir (glowsticks): um 50 stk. í nokkrum litum, helst með armbandstengjum. Um 14 fara í leið strákanna, rúm 20 í leið stelpnanna og 6–8 í ljósaröðina að pottinum.',
         '2 hengilásar með lykli (ef þeir eru ekki til heima)',
         'Súkkulaðipeningar eða eitthvað smá í kistuna'
       ] },
-      { h: 'Til heima', items: [
-        'Kassi eða kista sem hægt er að læsa með tveimur hengilásum',
-        'Stór ullarsokkur (tröllasokkurinn)',
+      { h: '2. Til heima', items: [
+        'Kassi eða kista sem hægt er að læsa með tveimur hengilásum. Prófið báða lásana með lyklunum.',
+        'Merkið lás og lykil Drumbs með D og lás og lykil Ketils með ᛝ (límband og tússpenni). Aukalyklarnir fara í vasa pabba.',
+        'Stór ullarsokkur (tröllasokkurinn). Ef hinn sokkurinn úr parinu er til fer hann í bæli Drumbs.',
+        'Teppi eða sæng í bæli Drumbs og dökkt teppi eða handklæði yfir kistuna',
         'Krukka með loki og tóm flaska með tappa + snæri',
-        'Steinn sem má teikna andlit á',
-        'Vasaljós eða höfuðljós fyrir hvert barn',
+        'Lítill steinn sem má teikna andlit á (tússpenni)',
+        'Vasaljós eða höfuðljós fyrir hvert barn (nýjar rafhlöður)',
         'Auka sími eða spjaldtölva fyrir ljósvitann',
-        'Prentefnið (eða blað og tússpenni)'
+        'Glært límband, skæri og plastpokar svo miðarnir blotni ekki'
       ] },
-      { h: 'Tröllaspæjararnir', items: [
-        'FORSTOFA: Ullarsokkurinn falinn í forstofunni, með ljósastaf inni í.',
-        `GESTAHÚS: ${s.glowCount} ljósastafir faldir um allt herbergi (undir rúmi, bak við gardínur, í skóm). Ljósin slökkt.`,
-        `TRÉN VIÐ POTTINN: 3–4 ${col} ljósastafir hengdir hátt upp í greinarnar.`,
-        'ÁLFAHÚSIÐ: Tvö ljósastafa-armbönd við dyrnar á álfahúsinu.',
-        'RÚSTIN: Steinn með teiknuðu andliti og ljósastaf falinn við rústina. Skráið GPS-staðinn í Stillingum (á síma strákanna).',
-        'BÆLIÐ: Sunnan við stóra húsið. Fullorðinn í teppi að „sofa“ með LYKIL DRUMBS í hendinni. Eða hrúga af teppum með lyklinum.'
+      { h: '3. Prentefni', items: [
+        'Prentið allt (flipinn Prentefni) og klippið út.',
+        'EFTIRLÝSTUR: hengt upp í forstofunni. Strákarnir skoða það á meðan þeir klæða sig.',
+        'Skírteini Tröllaspæjaranna: gefin Jóhanni og Hólmari áður en þeir byrja.',
+        'Bréf Drumbs og viðurkenningarskjalið fara í kistuna með silfrinu.'
       ] },
-      { h: 'Rúnameistararnir', items: [
-        'AÐALHÚS: Ekkert að fela. Rúnirnar birtast á skjánum.',
-        `GESTAHÚS: Spegilrúnamiðinn (Prentefni) límdur við hliðina á speglinum. Rúnirnar snúa öfugt og segja að fyrsta talan sé ${L[0]}.`,
-        `RÚSTIN: Krukka með dulmálsmiðanum (önnur talan ${L[1]}) og ljósastaf. Gangið ${s.compassSteps} skref í ${dirName(s.compassDeg)} frá rústinni og felið hana þar.`,
-        'KJARRIÐ: 11 miðar bundnir á ljósastafi og hengdir í runnana. 7 réttir (ᛝ, mynda HRINGUR) og 4 gildrur (ᛞ).',
-        `LJÓSAHRINGURINN: 8–10 ljósastafir lagðir í hring (2–3 m) úti í mónum, sunnan og austan við kjarrið. Flöskuskeytið (svar ${L[2]}) í miðjunni.`,
+      { h: '4. Símarnir', items: [
+        'Hlaðið símana og spjaldtölvuna. Hljóðið í botn og slökkt á þöggunartakkanum.',
+        'Stillingar: litur í trjánum og fjöldi ljósastafa í gestahúsinu verða að passa við það sem þið felið. Skráið stað steinsins við rústina (Tröllaratsjáin).',
+        'Sendið svo stillingahlekkinn í síma beggja liða og ljósvitann (Stillingar › Senda stillingar).',
+        'Opnið leikinn í síma hvors liðs og leyfið hljóðnema, staðsetningu og hreyfiskynjara þegar spurt er.'
+      ] },
+      { h: '5. Tröllaspæjararnir (felið kl. 14:30–15:30)', items: [
+        'FORSTOFA: Ullarsokkurinn með ljósastaf inni í. Allir klæða sig í forstofunni. Felið hann því vel (t.d. ofan í stígvéli) eða leggið hann þar rétt áður en strákarnir byrja.',
+        `GESTAHÚS: ${s.glowCount} ljósastafir faldir um allt herbergi (undir rúmi, bak við gardínur, í skóm). Hafið ljósin KVEIKT. Strákarnir slökkva þau sjálfir og þá birtast „tröllasteinarnir“.`,
+        `TRÉN VIÐ POTTINN: 3–4 ${col} ljósastafir hengdir hátt upp í greinarnar. Liturinn verður að vera rauður, grænn, blár eða gulur og sá sami og í Stillingum. Takið frá einn í sama lit fyrir lykil Drumbs.`,
+        'ÁLFAHÚSIÐ: Tvö ljósastafa-armbönd falin Á BAK VIÐ álfahúsið (t.d. undir fötu eða í poka) svo glóðin sjáist ekki fyrr en álfarnir segja frá.',
+        `RÚSTIN: Steinn með teiknuðu andliti (Steini litli) og ljósastafur undir honum. Felið hann 10–20 skref frá steinahrúgunni en ekki í ${dirName(s.compassDeg)} (þar er krukka stelpnanna). Standið á staðnum og skráið hann í Stillingum (Tröllaratsjáin).`,
+        `BÆLIÐ: Sunnan við aðalhúsið. Hrúga af teppum eins og sofandi tröll. Lykill Drumbs í „hendinni“ með ${colDat} ljósastaf (uppáhaldslitur Drumbs). Hinn ullarsokkurinn má standa út undan teppinu eins og tröllafótur.`
+      ] },
+      { h: '6. Rúnameistararnir (felið kl. 14:30–15:30)', items: [
+        'AÐALHÚS: Ekkert að fela. Rúnirnar birtast á skjánum. Gefið stelpunum rúnameistarabréfin og rúnalyklana (Prentefni) í upphafi.',
+        `GESTAHÚS: Spegilmiðinn (Prentefni, miði 1) hengdur LAUST á spegilinn, t.d. stunginn í rammann eða festur með einni límbandsræmu. Stelpurnar taka hann og halda honum upp að speglinum. Rúnirnar segja að fyrsta talan sé ${L[0]}.`,
+        `RÚSTIN: Krukka merkt ᛝ með dulmálsmiðanum (miði 2, önnur talan ${L[1]}) og ljósastaf. Gangið ${s.compassSteps} stutt barnaskref í ${dirName(s.compassDeg)} frá rústinni og felið hana þar í hvarfi (bak við þúfu eða stein) svo glóðin sjáist ekki frá rústinni.`,
+        'KJARRIÐ: 11 miðar (Prentefni) bundnir á ljósastafi og hengdir í runnana í jaðri kjarrsins sem snýr að húsunum, á litlu svæði (10–15 m). 7 réttir (ᛝ, mynda HRINGUR) og 4 gildrur (ᛞ). Glóðin vísar stelpunum leiðina í myrkrinu.',
+        `LJÓSAHRINGURINN: 8–10 ljósastafir lagðir í hring (2–3 m) úti í mónum, sunnan við kjarrið. Veljið stað sem sést vel frá kjarrinu en EKKI á leiðinni frá rústinni út í kjarrið (t.d. í laut eða í hvarfi við kjarrið). Annars fara stelpurnar beint í hringinn. Flöskuskeytið (miði 3, gátan, svar ${L[2]}) í miðjunni.`,
         `ÚTSÝNISPALLURINN: Sími eða spjaldtölva í glugga sem sést frá pallinum. Opnið Ljósvitann (blikkar ${fold(digitWord(L[3]))}). Fulla birtu á skjáinn.`,
-        `LYKILL KETILS: Falinn ${s.girlsKeyPlace}, með ljósastaf.`
+        `LYKILL KETILS: Falinn ${s.girlsKeyPlace}, í poka eða krukku merktri ᛝ. EKKI með ljósastaf: stelpurnar standa á pallinum í Morse-þrautinni og myndu sjá glóðina strax. Þær finna lykilinn með vasaljósi.`
       ] },
-      { h: 'Lokastöðin', items: [
-        'Kistan við pottinn, læst með báðum lásunum. Bréf Drumbs og silfrið inni í.',
-        'Ljósastafir í röð frá húsinu að pottinum (í stað kyndla).'
+      { h: '7. Lokastöðin', items: [
+        'Kistan við pottinn, læst með báðum lásunum og falin undir dökku teppi (strákarnir eru við trén rétt hjá). Bréf Drumbs, viðurkenningin og silfrið inni í.',
+        'Ljósaröð: 6–8 ljósastafir frá aðalhúsinu að pottinum. Brjótið þá og leggið út þegar strákarnir eru komnir út á rústina (fjarstýringin sýnir hvar þeir eru). Ef enginn er laus má leggja hana út fyrir leik.'
       ] },
-      { h: 'Öryggi', items: [
+      { h: '8. Í leiknum', items: [
+        'Allir horfa saman á upphafsmyndbandið (Sagan hefst á forsíðunni).',
+        'Rúnameistararnir byrja fyrst. Leið þeirra er miklu lengri (um 70–90 mín.) en leið strákanna (um 35–45 mín.).',
+        'Tröllaspæjararnir byrja þegar fjarstýringin sýnir að stelpurnar eru komnar á rústina (um 20–30 mín. síðar). Á meðan klæða strákarnir sig, skoða Eftirlýstur og fá skírteinin.',
+        'Liðið sem kemur fyrr að pottinum sér í símanum hvar hitt liðið er. Ef biðin verður löng má fara inn í hlýjuna og koma aftur þegar hitt liðið er á leiðinni.',
+        'Við kistuna: horfið saman á lokamyndbandið í einum síma og ýtið á Sleppa í hinum.'
+      ] },
+      { h: '9. Öryggi', items: [
         'Vegurinn austan við jörðina er BANNSVÆÐI. Engar stöðvar nálægt honum.',
-        'Fullorðinn fylgir Tröllaspæjurunum allan tímann.',
+        'Lokið á heita pottinum á sínum stað. Strákarnir eru tvisvar við pottinn í myrkrinu.',
+        'Fullorðinn fylgir Tröllaspæjurunum allan tímann og heldur í höndina á þeim úti á rústinni.',
         'Fullorðinn í humátt á eftir Rúnameisturunum við kjarrið og ljósahringinn.',
         'Hlý föt á alla og hlaðnir símar.'
       ] }
@@ -926,12 +981,12 @@
     prep(s) {
       const done = LS.get('prepdone', {});
       return PREP(s).map((g, gi) => `<section class="hqsec"><h3 class="cinzel">${g.h}</h3>${g.items.map((it, ii) => `<label class="chk"><input type="checkbox" data-k="${gi}-${ii}" ${done[gi + '-' + ii] ? 'checked' : ''}><span>${it}</span></label>`).join('')}</section>`).join('')
-        + `<p class="small">Ljósaskipti á laugardaginn um kl. 16. Felið allt í birtu, helst fyrir kl. 15:30.</p>`;
+        + `<p class="small">Ljósaskipti á laugardaginn um kl. 16. Felið allt í birtu, helst fyrir kl. 15:30. Ljósastafir lýsa daufar í kulda en endast lengur. Brjótið þá rétt áður en þið felið þá.</p>`;
     },
     print(s) {
       return `<section class="hqsec"><h3>Prentefni</h3>
         <p>Allt prentefnið er á einni síðu, tilbúið til prentunar á A4:</p>
-        <ul class="plist"><li>Uppdráttur af jörðinni (fjársjóðskort)</li><li>Eftirlýst: Tröllið Drumbur</li><li>Tröllaspæjaraskírteini ×2</li><li>Rúnameistarabréf ×2 og rúnalyklar</li><li>Stöðvamiðar: spegill, rúst, kjarr og flöskuskeyti</li><li>Bréf Drumbs í kistuna</li><li>Viðurkenningarskjal fyrir fjársjóðsfinnendur</li></ul>
+        <ul class="plist"><li>Uppdráttur af jörðinni (fjársjóðskort)</li><li>Eftirlýst: Tröllið Drumbur</li><li>Tröllaspæjaraskírteini ×2</li><li>Rúnameistarabréf ×2 og rúnalyklar</li><li>Stöðvamiðar: spegill, krukka við rústina og flöskuskeyti</li><li>Miðar í kjarrið (bókstafir og gildrur)</li><li>Bréf Drumbs í kistuna</li><li>Viðurkenningarskjal fyrir fjársjóðsfinnendur</li></ul>
         <a class="btn big" href="print.html" target="_blank" rel="noopener">📜 Opna prentefnið</a>
         <p class="small">Ekkert prentara? Skrifið miðana upp með tússpenna. Rúnirnar eru á skjánum.</p></section>`;
     },
@@ -984,7 +1039,7 @@
         if (x.kind === 'pick') { const o = x.options.find(o => o.v === x.correct); return `${o.e} ${o.t}`; }
         if (x.kind === 'number') return s[x.correctFrom];
         if (x.kind === 'color') return D.colors[s[x.correctFrom]].name;
-        if (x.kind === 'digit') return L[st.digit];
+        if (x.kind === 'digit') return `${L[st.digit]} (${digitWord(L[st.digit])})`;
         if (x.kind === 'text') return x.accept[0];
         if (x.kind === 'code') return L.join('');
       };

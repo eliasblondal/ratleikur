@@ -32,14 +32,15 @@
     <div class="wanted">
       <div class="w-top">Eftirlýstur</div>
       <div class="w-sub">fyrir að stela silfurkistu Ketils hængs</div>
-      <div class="w-img"><img src="img/troll.webp?v=1794565002" alt=""></div>
+      <div class="w-img"><img src="img/troll.webp?v=1794571856" alt=""></div>
       <div class="w-name">Tröllið Drumbur</div>
       <ul class="w-list">
         <li><b>Þekkist á:</b> risastóru kartöflunefi og mosa um allan kroppinn</li>
         <li><b>Klæðnaður:</b> bara í EINUM ullarsokk</li>
         <li><b>Hættulegur?</b> Nei. Bara mjög klaufskur.</li>
         <li><b>Veikleiki:</b> þolir ekki ljós. Verður að steini í dagsbirtu.</li>
-        <li><b>Sást síðast:</b> á Stillu á Rangárvöllum, ${DATE}</li>
+        <li><b>Lykt:</b> fussum svei! Tröllalykt.</li>
+        <li><b>Sást síðast:</b> í nótt, á Stillu á Rangárvöllum</li>
       </ul>
       <div class="w-reward">Fundarlaun: <span>Silfur Ketils hængs</span></div>
       <div class="w-sign">ᛝ Ketill hængur, landnámsmaður</div>
@@ -50,7 +51,7 @@
   const badge = (n, name) => `<div class="cert badge">
       <div class="b-head"><span class="b-ico">🔦</span><div><div class="b-t">Tröllaspæjari</div><div class="b-s">Spæjaraskírteini nr. 00${n}</div></div></div>
       <div class="b-body">
-        <div class="b-photo"><img src="img/troll.webp?v=1794565002" alt=""><span class="b-stamp">ELTIR</span></div>
+        <div class="b-photo"><img src="img/troll.webp?v=1794571856" alt=""><span class="b-stamp">ELTUR</span></div>
         <div class="b-fields">
           <div class="field">Nafn: <span class="hand">${name}</span></div>
           <div class="field">Undirskrift:</div>
@@ -64,10 +65,10 @@
 
   /* 4. Rúnameistarabréf */
   const diploma = (n, name) => `<div class="cert diploma">
-      <div class="d-runes">${toRunes('RUNAMEISTARI KETILS HAENGS')}</div>
+      <div class="d-runes">${toRunes('RÚNAMEISTARI KETILS HÆNGS')}</div>
       <div class="d-t">Rúnameistari</div>
       <div class="d-body">
-        <img src="img/ketill.webp?v=1794565002" alt="">
+        <img src="img/ketill.webp?v=1794571856" alt="">
         <div>
           <p>Hér með staðfestist að</p>
           <div class="field big"><span class="hand">${name}</span></div>
@@ -84,15 +85,23 @@
   pages.push(`<section class="page"><div class="frame"></div><h2 class="ph">Rúnalyklar</h2><p class="pn">Einn fyrir Katrínu og einn fyrir Aríu. Má plasta eða setja í plastvasa.</p>${keycard()}<div class="cut"></div>${keycard()}</section>`);
 
   /* 6. Stöðvamiðar */
+  // Leiðbeiningar fyrir fullorðna eru UTAN við miðana (klipptar frá) svo stelpurnar sjái ekki svörin.
   pages.push(`<section class="page"><div class="frame"></div><h2 class="ph">Stöðvamiðar Rúnameistaranna</h2>
-    <div class="slip"><div class="slip-l">Gestahúsið · spegilrúnir, límist við spegilinn (fyrsta talan = ${L[0]})</div>
+    <p class="pn">Klippið eftir strikalínunum. Rauðu línurnar eru bara fyrir fullorðna og eru klipptar frá.</p>
+    <div class="slip-l">Miði 1 · Gestahúsið: hengist LAUST á spegilinn (fyrsta talan = ${L[0]})</div>
+    <div class="cut thin"></div>
+    <div class="slip">
       <div class="mirror mrunes">${toRunes('FYRSTA TALAN ER ' + W(L[0])).split(' ᛫ ').map(w => `<span>${w}</span>`).join(' ᛫ ')}</div><div class="psig mirror-sig">ᛝ</div></div>
     <div class="cut"></div>
-    <div class="slip"><div class="slip-l">Rústin · í krukkuna (önnur talan = ${L[1]})</div>
+    <div class="slip-l">Miði 2 · Rústin: í krukkuna merkta ᛝ (önnur talan = ${L[1]})</div>
+    <div class="cut thin"></div>
+    <div class="slip">
       <p class="wheelkey">Hjól Ketils: stillið hjólið þannig að ytra <b>A</b> standi yfir innra <b>D</b></p>
       <div class="pcaesar">${CAESAR('ÖNNUR TALAN ER ' + W(L[1]), 3)}</div><div class="psig">ᛝ Ketill</div></div>
     <div class="cut"></div>
-    <div class="slip letterslip"><div class="slip-l">Ljósahringurinn · í flöskuna (þriðja talan = ${L[2]})</div>
+    <div class="slip-l">Miði 3 · Ljósahringurinn: rúllið upp og setjið í flöskuna (þriðja talan = ${L[2]})</div>
+    <div class="cut thin"></div>
+    <div class="slip letterslip">
       <p>Kæru rúnameistarar.</p><p>Þriðja tala rúnakóðans er svarið við þessari gátu:</p>
       <p class="riddle">${D.riddles[+L[2]]}</p><p class="psig">ᛝ Ketill</p></div>
   </section>`);
@@ -102,14 +111,14 @@
   const order = [6, 7, 0, 3, 8, 1, 9, 4, 2, 10, 5];
   const all = [...good.map(l => ({ l, m: 'ᛝ' })), ...bad.map(l => ({ l, m: 'ᛞ' }))];
   pages.push(`<section class="page"><div class="frame"></div><h2 class="ph">Miðarnir í kjarrið</h2>
-    <p class="pn">Klippið út og bindið hvern miða á ljósastaf. 7 réttir (ᛝ = merki Ketils, mynda HRINGUR) og 4 gildrur (ᛞ = Drumbur).</p>
+    <p class="pn">Klippið út og bindið hvern miða á ljósastaf. Hengið þá í jaðar kjarrsins sem snýr að húsunum, á litlu svæði. 7 réttir (ᛝ = merki Ketils, mynda HRINGUR) og 4 gildrur (ᛞ = Drumbur).</p>
     <div class="ptags">${order.map(i => all[i]).map(t => `<div class="ptag"><span class="tm">${t.m}</span><span class="tl">${t.l}</span></div>`).join('')}</div>
   </section>`);
 
   /* 8. Bréf Drumbs */
   pages.push(`<section class="page"><div class="frame"></div>
     <div class="trolletter">
-      <img src="img/troll.webp?v=1794565002" alt="">
+      <img src="img/troll.webp?v=1794571856" alt="">
       ${D.finale.trollLetter.map(l => `<p>${l.replace(/\n/g, '<br>')}</p>`).join('')}
       <div class="smudge"></div>
     </div>
@@ -119,10 +128,10 @@
   /* 9. Viðurkenningarskjal */
   pages.push(`<section class="page"><div class="frame"></div>
     <div class="award">
-      <div class="d-runes">${toRunes('STILLA')} ᛫ ${toRunes('SILFUR KETILS HAENGS')}</div>
+      <div class="d-runes">${toRunes('STILLA')} ᛫ ${toRunes('SILFUR KETILS HÆNGS')}</div>
       <div class="a-t">Viðurkenning</div>
       <div class="a-s">Fjársjóðsfinnendur</div>
-      <img src="img/kista.webp?v=1794565002" alt="">
+      <img src="img/kista.webp?v=1794571856" alt="">
       <p>Hér með staðfestist að</p>
       ${[...D.trollar.kids, ...D.runir.kids].map(k => `<div class="field big"><span class="hand">${k}</span></div>`).join('')}
       <p>eltu tröllið Drumb, réðu í rúnir Ketils hængs og fundu silfrið hans á Stillu ${DATE}.</p>

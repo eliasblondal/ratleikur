@@ -140,3 +140,4 @@ html, body { margin: 0; background: #2a1d12; color: var(--ink); font-family: Ale
 .mirror-sig { transform: scaleX(-1); text-align: left; }
 .wheelkey { font-family: Fell, serif; font-style: italic; font-size: 14pt; text-align: center; margin: 0 0 2mm; }
 .pcaesar { font-family: 'Fell SC', serif; font-size: 34pt; text-align: center; letter-spacing: .12em; line-height: 1.3; }
+.cut.thin { margin: 2mm -6mm 4mm; }

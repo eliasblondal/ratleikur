@@ -24,17 +24,31 @@ window.RATLEIKUR = {
 
   numberWords: ['NÚLL','EINN','TVEIR','ÞRÍR','FJÓRIR','FIMM','SEX','SJÖ','ÁTTA','NÍU'],
 
+  // Gátan í flöskuskeytinu (Rúnameistararnir, ljósahringurinn). Svarið er 3. tala rúnakóðans.
   riddles: [
-    'Hve margar fætur hefur fiskur?',
+    'Hve marga fætur hefur fiskur?',
     'Hve mörg nef hefur tröllið Drumbur?',
-    'Hve margar fætur hefur einn hrafn?',
+    'Hve marga fætur hefur einn hrafn?',
     'Hve mörg horn hefur þríhyrningur?',
-    'Hve margar fætur hefur ein kind?',
+    'Hve marga fætur hefur ein kind?',
     'Hve marga fingur hefur ein hönd?',
-    'Hve margar fætur hafa þrír hrafnar saman?',
+    'Hve marga fætur hafa þrír hrafnar samtals?',
     'Hve margir dagar eru í einni viku?',
-    'Hve margar fætur hafa tveir hrafnar og ein kind saman?',
+    'Hve marga fætur hafa tveir hrafnar og ein kind samtals?',
     'Hve mikið er þrisvar sinnum þrír?'
+  ],
+  // Vísbending við hverri gátu (birtist í appinu í stað {riddlehint})
+  riddleHints: [
+    'Fiskar synda. Hafa þeir einhverja fætur?',
+    'Drumbur er með eitt risastórt kartöflunef.',
+    'Hrafn er fugl. Fuglar standa á jafn mörgum fótum og þið.',
+    'Þrí þýðir þrír. Teljið hornin.',
+    'Kind gengur eins og hundur. Teljið fæturna.',
+    'Lítið á höndina á ykkur og teljið fingurna.',
+    'Hver hrafn hefur tvo fætur. Leggið saman tvo og tvo og tvo.',
+    'Mánudagur, þriðjudagur… teljið alla dagana.',
+    'Hrafn er fugl með tvo fætur og kind hefur fjóra. Leggið alla fæturna saman!',
+    'Þrír og þrír og þrír.'
   ],
 
   colors: {
@@ -67,13 +81,13 @@ window.RATLEIKUR = {
     kids: ['Jóhann', 'Hólmar'],
     kidsNom: 'Jóhann og Hólmar',
     kidsDat: 'Jóhanni og Hólmari',
-    image: 'img/troll.webp?v=1794565002',
+    image: 'img/troll.webp?v=1794571856',
     theme: 'troll',
     intro: [
       'Hæ, Jóhann og Hólmar!',
-      'Þið eruð tröllaspæjarar og í nótt þurfum við á ykkur að halda.',
+      'Þið eruð tröllaspæjarar og í kvöld þurfum við á ykkur að halda.',
       'Í nótt læddist tröllið Drumbur niður af fjöllunum og heim að Stillu.',
-      'Hann fann gömlu silfurkistuna hans Ketils hængs og stal öðrum LYKLINUM að henni.',
+      'Hann stal gömlu silfurkistunni hans Ketils hængs og líka öðrum LYKLINUM að henni.',
       'Drumbur er klaufskt tröll. Hann skilur alls staðar eftir sig slóð.',
       'Getið þið rakið slóðina og náð lyklinum af honum?',
       'Takið vasaljósin með. Tröll þola ekki ljós!'
@@ -84,7 +98,7 @@ window.RATLEIKUR = {
         travel: null,
         task: 'Drumbur kom inn um dyrnar í nótt og týndi einhverju í forstofunni. Leitið vel! Hvað funduð þið?',
         hint: 'Það er eitthvað sem maður setur á fótinn… og það er RISASTÓRT.',
-        success: 'Tröllasokkur! Nú er Drumbur bara í einum sokk. Honum hlýtur að vera kalt á tánum!',
+        success: 'Tröllasokkur! Nú er Drumbur bara í einum sokk. Honum hlýtur að vera kalt á tánum! Takið sokkinn með ykkur. Kannski vill Drumbur fá hann aftur.',
         answer: { kind: 'pick', correct: 'sokkur', options: [
           { v: 'vettlingur', e: '🧤', t: 'Vettlingur' },
           { v: 'sokkur', e: '🧦', t: 'Sokkur' },
@@ -94,7 +108,7 @@ window.RATLEIKUR = {
       },
       {
         place: 'gestahus', title: 'Gestahúsið', icon: '🏠',
-        travel: 'Sjáið þið blautu fótsporin? Drumbur fór yfir í litla húsið. Förum í gestahúsið!',
+        travel: 'Fussum svei! Finnið þið tröllalyktina? Drumbur fór yfir í litla húsið. Förum í gestahúsið!',
         task: 'Slökkvið ljósin í gestahúsinu. Drumbur missti glóandi tröllasteina út um allt! Finnið þá og teljið. Hvað eru þeir margir?',
         hint: 'Kíkið undir rúm, á bak við gardínur og ofan í skó.',
         success: 'Rétt talið! Tröll safna glóandi steinum. Drumbur var sko hérna.',
@@ -115,7 +129,7 @@ window.RATLEIKUR = {
         travel: 'Drumbur fór yfir að litla álfahúsinu og vakti álfana! Læðist þangað. Álfar eru feimnir.',
         task: 'Álfarnir urðu reiðir við Drumb og földu sig í myrkrinu. Lýsið með fingrinum á skjáinn og finnið alla fjóra álfana! Þá segja þeir ykkur hvar gjöfin þeirra er.',
         game: 'flashlight', gameOpts: { count: 4, emoji: '🧝' },
-        gameWin: 'Álfarnir hvísla: „Gjöfin okkar er við dyrnar á álfahúsinu.“ Kíkið! Hvað gáfu álfarnir ykkur?',
+        gameWin: 'Álfarnir hvísla: „Gjöfin okkar er falin á bak við álfahúsið.“ Kíkið! Hvað gáfu álfarnir ykkur?',
         hint: 'Það glóir og maður setur það á úlnliðinn.',
         success: 'Glóandi álfaarmbönd! Setjið þau á ykkur. Þá sér Drumbur að þið eruð vinir álfanna.',
         answer: { kind: 'pick', correct: 'armband', options: [
@@ -126,13 +140,13 @@ window.RATLEIKUR = {
         item: '📿'
       },
       {
-        place: 'rust', title: 'Rústin', icon: '🪨', tool: 'radar',
-        travel: 'Álfarnir hvísla: „Drumbur fór út að gömlu rústinni.“ Haldið hópinn!',
-        task: 'Kveikið á tröllaratsjánni og finnið hvað Drumbur faldi við rústina. Því hraðar sem hún pípir, því nær eruð þið! En á því hvílir tröllagaldur. Leggið símann á jörðina á milli ykkar og lyftið galdrasteininum SAMAN.',
+        place: 'rust', title: 'Rústin', icon: '🪨', tool: 'radar', toolAfterGame: true,
+        travel: 'Álfarnir hvísla: „Drumbur fór út að gömlu rústinni.“ Rústin er stór steinahrúga úti á miðri jörðinni. Það er langt að fara í myrkrinu. Haldið í höndina á fullorðna spæjaranum!',
+        task: 'Drumbur faldi eitthvað við rústina og velti galdrasteini yfir tröllaratsjána. Leggið símann á jörðina á milli ykkar. Hvor heldur fingri á sinni hendi og þið veltið steininum burt SAMAN!',
         game: 'lift', gameOpts: { names: ['Jóhann', 'Hólmar'] },
-        gameWin: 'Galdurinn er brotinn! Hvað fannst við rústina?',
+        gameWin: 'Galdurinn er brotinn! Nú virkar tröllaratsjáin. Kveikið á henni og gangið hægt í kringum rústina. Því hraðar sem hún pípir, því nær eruð þið! Hvað funduð þið?',
         hint: 'Fullorðni spæjarinn má segja HEITT eða KALT.',
-        success: 'Steinn með andliti! Þetta er lítið tröll sem varð að steini þegar sólin kom upp. Drumbur verður að passa sig á ljósinu…',
+        success: 'Steinn með andliti! Þetta er Steini litli, frændi Drumbs. Hann varð að steini þegar sólin kom upp. Drumbur verður að passa sig á ljósinu…',
         answer: { kind: 'pick', correct: 'steinn', options: [
           { v: 'tre', e: '🌲', t: 'Tré' },
           { v: 'sveppur', e: '🍄', t: 'Sveppur' },
@@ -143,7 +157,7 @@ window.RATLEIKUR = {
       {
         place: 'baeli', title: 'Bæli Drumbs', icon: '💤', tool: 'sneak',
         travel: 'Heyrið þið? Hrrrr… hrrrr… Drumbur er sofnaður! Bælið hans er rétt hjá stóra húsinu. Læðist!',
-        task: 'Læðist að Drumbi. Hann má EKKI vakna! Ef hann rumskar þurfið þið að blinda hann með töfraljósi.',
+        task: 'Læðist hljóðlega að bælinu. Drumbur má EKKI vakna! Hljóðmælirinn sýnir hvort hann heyrir í ykkur. Þegar þið eruð komin alveg að honum: hristið símann og blindið hann með töfraljósi!',
         game: 'shake',
         gameWin: 'Nú! Takið það sem Drumbur heldur á. Hvað er það?',
         hint: 'Ef hljóðmælirinn verður rauður rumskar Drumbur. Hvíslið!',
@@ -171,7 +185,7 @@ window.RATLEIKUR = {
     kids: ['Katrín', 'Aría'],
     kidsNom: 'Katrín og Aría',
     kidsDat: 'Katrínu og Aríu',
-    image: 'img/ketill.webp?v=1794565002',
+    image: 'img/ketill.webp?v=1794571856',
     theme: 'rune',
     intro: [
       'Katrín og Aría, rúnameistarar!',
@@ -201,19 +215,19 @@ window.RATLEIKUR = {
       },
       {
         place: 'rust', title: 'Rústin', icon: '🧭', tool: 'compass', digit: 1,
-        travel: 'Næst: gamla rústin úti á miðri jörðinni. Takið áttavitann með ykkur.',
-        task: 'Standið við rústina. Ketill faldi næstu skilaboð {steps} skref í {dir}. Snúið ykkur þar til örin glóir og teljið skrefin upphátt. Skilaboðin eru á dulmáli. Notið hjól Ketils hér fyrir neðan til að ráða í þau. Hver er ÖNNUR talan?',
+        travel: 'Næst: gamla rústin úti á miðri jörðinni. Þar þurfið þið áttavita Ketils. Hann er hér í símanum.',
+        task: 'Standið við rústina. Ketill faldi krukku merkta ᛝ {steps} skref í {dir}. Kveikið á áttavitanum, snúið ykkur þar til hann glóir grænn og teljið skrefin upphátt. Í krukkunni eru skilaboð á dulmáli. Ráðið í þau með hjóli Ketils hér fyrir neðan. Hver er ÖNNUR talan? Ef eitthvað annað glóir við rústina er það handa strákunum. Látið það vera!',
         hint: 'Á miðanum stendur hvernig á að stilla hjólið. Finnið hvern staf á innri hringnum og lesið stafinn fyrir ofan hann á ytri hringnum.',
         game: 'wheel', gate: false,
         success: 'Önnur talan er komin. Ketill væri stoltur af ykkur!',
         answer: { kind: 'digit' }
       },
       {
-        place: 'kjarr', title: 'Kjarrið', icon: '🌿', tool: 'runekey',
-        travel: 'Ketill átti leynistað í kjarrinu vestast á jörðinni. Það er löng leið í myrkrinu. Haldið hópinn!',
-        task: 'Kjarrið er lokað með tvíröddum galdri Ketils. Leggið símann á jörðina á milli ykkar og sitjið hvor á móti annarri. Önnur sér rúnirnar, hin hefur takkana. Þið verðið að tala saman!',
+        place: 'kjarr', title: 'Kjarrið', icon: '🌿', tool: 'keyonly',
+        travel: 'Ketill átti leynistað í kjarrinu vestast á jörðinni. Haldið áfram í vestur. Það er löng leið í myrkrinu. Haldið hópinn og leitið að einhverju sem glóir í kjarrinu!',
+        task: 'Sjáið þið glóandi miðana? Á hverjum þeirra er einn stafur. Tínið ALLA miðana úr kjarrinu og komið með þá hingað. En Drumbur hengdi líka upp gildrur! Galdur Ketils segir ykkur hvaða miðar eru réttir. Haldið símanum flötum á milli ykkar og standið hvor á móti annarri. Önnur sér rúnirnar og hin hefur takkana. Þið verðið að tala saman!',
         game: 'duet', gameOpts: { names: ['Katrín', 'Aría'] },
-        gameWin: 'Kjarrið opnast! Í því hanga glóandi miðar. Bara miðarnir sem bera merki Ketils, ᛝ, eru réttir. Hinir eru gildrur frá Drumbi! Raðið stöfunum á réttu miðunum í orð. Hvert eigið þið að fara næst?',
+        gameWin: 'Galdurinn virkaði! Miðarnir sem bera merki Ketils, ᛝ, eru réttir. Miðarnir með ᛞ eru gildrur frá Drumbi. Leggið þá til hliðar! Raðið svo stöfunum á réttu miðunum í eitt orð. Hvert eigið þið að fara næst?',
         hint: 'Það er kringlótt og hefur hvorki upphaf né endi.',
         success: 'Hringur! Ketill bjó til glóandi ljósahring úti í mónum. Sjáið þið hann?',
         answer: { kind: 'text', accept: ['HRINGUR', 'HRINGURINN', 'HRING', 'HRINGINN', 'LJOSAHRINGUR', 'LJOSAHRINGURINN'], placeholder: 'Skrifið orðið…' }
@@ -224,7 +238,7 @@ window.RATLEIKUR = {
         task: 'Finnið flöskuna í miðjum ljósahringnum. Í henni er gáta frá Katli. En rúnasteinarnir taka bara við svarinu ef þið kunnið söng þeirra!',
         game: 'simon', gameOpts: { length: 5 },
         gameWin: 'Rúnasteinarnir hlusta. Hvert er svarið við gátunni? Það er ÞRIÐJA tala rúnakóðans.',
-        hint: 'Teljið vel og hægt. Fingurnir hjálpa.',
+        hint: '{riddlehint}',
         success: 'Þriðja talan! Nú vantar bara eina.',
         answer: { kind: 'digit' }
       },
@@ -249,17 +263,20 @@ window.RATLEIKUR = {
       },
       {
         place: 'pottur', title: 'Heiti potturinn', icon: '🔥', finale: true,
-        travel: 'Takið lykil Ketils með ykkur og fylgið ljósunum að heita pottinum. Drumbur faldi kistuna þar. Tröll elska heitt vatn!'
+        travel: 'Takið lykil Ketils með ykkur og fylgið ljósunum að heita pottinum. Drumbur faldi kistuna þar. Tröll elska heitt vatn! Jóhann og Hólmar koma þangað með lykil Drumbs.'
       }
     ]
   },
 
   finale: {
+    // Biðtexti Tröllaspæjaranna við kistuna (stelpurnar fá sinn texta í app.js)
+    waitRunir: 'Kistan er hér! En hún er læst með TVEIMUR lásum. Lykill Ketils opnar bara annan. Jóhann og Hólmar eru með lykil Drumbs. Ef þeir eru ekki komnir skuluð þið passa kistuna á meðan þið bíðið.',
+    waitTrollar: 'Kistan er hér! En hún er læst með TVEIMUR lásum. Lykill Drumbs opnar bara annan. Katrín og Aría eru að leita að hinum lyklinum. Passið kistuna á meðan þið bíðið. Litlu tröllin læðast að henni! Lýsið á þau með fingrinum.',
     trollLetter: [
       'Kæru Jóhann, Hólmar, Katrín og Aría.',
       'Fyrirgefið að ég tók kistuna. Mig langaði bara svo mikið í heita pottinn…',
       'Ketill má eiga silfrið. Þið líka.',
-      'En má ég fá sokkinn minn aftur?',
+      'En má ég fá sokkinn minn aftur? Skiljið hann eftir hjá pottinum.',
       'Ykkar vinur,\nDrumbur'
     ]
   }

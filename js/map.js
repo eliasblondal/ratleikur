@@ -134,8 +134,8 @@
     ${tufts()}
     <path d="${pathSmooth(BOGI)}" fill="none" stroke="${GREEN}" stroke-width="6" stroke-linecap="round" opacity=".35"/>
     ${trees()}
-    <!-- rústin -->
-    <g transform="rotate(-18 1122 588)"><rect x="1108" y="574" width="28" height="28" fill="none" stroke="${INK}" stroke-width="2.4" stroke-dasharray="6 3"/><rect x="1114" y="580" width="16" height="16" fill="none" stroke="${INK}" stroke-width="1" opacity=".6"/></g>
+    <!-- rústin (steinahrúga) -->
+    <g><ellipse cx="1123" cy="577" rx="6.5" ry="4.5" fill="#d9c79a" stroke="${INK}" stroke-width="1.6"/><ellipse cx="1116" cy="587" rx="7" ry="5" fill="#d9c79a" stroke="${INK}" stroke-width="1.6"/><ellipse cx="1130" cy="587" rx="7.5" ry="5" fill="#d9c79a" stroke="${INK}" stroke-width="1.6"/><ellipse cx="1137" cy="595" rx="6.5" ry="4.5" fill="#d9c79a" stroke="${INK}" stroke-width="1.6"/><ellipse cx="1110" cy="596" rx="7" ry="5" fill="#d9c79a" stroke="${INK}" stroke-width="1.6"/><ellipse cx="1124" cy="598" rx="8" ry="5.5" fill="#d9c79a" stroke="${INK}" stroke-width="1.6"/></g>
   </g>
   <!-- landamerki -->
   <polygon class="plotline" points="${pts(PLOT)}" fill="none" stroke="${RED}" stroke-width="4" stroke-dasharray="22 8 4 8" stroke-linejoin="round"/>
@@ -181,7 +181,7 @@
   <!-- hér eru tröll -->
   <g class="trolls" transform="translate(${print ? '820,1040' : '470,250'})">
     <circle r="66" fill="#e9d7a8" stroke="${INK}" stroke-width="2"/>
-    <image href="img/troll.webp?v=1794565002" x="-62" y="-75" width="124" height="166" clip-path="url(#trollClip)" preserveAspectRatio="xMidYMid slice" style="filter:sepia(.85) contrast(1.1) brightness(.95)"/>
+    <image href="img/troll.webp?v=1794571856" x="-62" y="-75" width="124" height="166" clip-path="url(#trollClip)" preserveAspectRatio="xMidYMid slice" style="filter:sepia(.85) contrast(1.1) brightness(.95)"/>
     <circle r="62" fill="none" stroke="${INK}" stroke-width="1.2"/>
     <text y="98" class="lbl lbl-sm hic">Hér eru tröll</text>
   </g>
