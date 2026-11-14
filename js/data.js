@@ -81,16 +81,17 @@ window.RATLEIKUR = {
     kids: ['Jóhann', 'Hólmar'],
     kidsNom: 'Jóhann og Hólmar',
     kidsDat: 'Jóhanni og Hólmari',
-    image: 'img/troll.webp?v=1794653124',
+    image: 'img/troll.webp?v=1794653795',
     theme: 'troll',
     intro: [
       'Hæ, Jóhann og Hólmar!',
       'Þið eruð tröllaspæjarar og í kvöld þurfum við á ykkur að halda.',
       'Í nótt læddist tröllið Drumbur niður af fjöllunum og heim að Stillu.',
       'Hann stal gömlu silfurkistunni hans Ketils hængs og líka öðrum LYKLINUM að henni.',
-      'Drumbur er klaufskt tröll. Hann skilur alls staðar eftir sig slóð.',
-      'Getið þið rakið slóðina og náð lyklinum af honum?',
-      'Takið vasaljósin með. Tröll þola ekki ljós!'
+      'En Drumbur gerði líka svolítið verra. Þegar hann gróf upp kistuna vakti hann gömlu draugana sem hafa sofið hjá silfrinu í þúsund ár.',
+      'Nú sveima þeir um Stillu í myrkrinu og leita að kistunni. Úúúú…',
+      'Draugar þola ekki tvennt: ljós og hvítlauk. Setjið hvítlauk Ketils um hálsinn og takið vasaljósin með!',
+      'Drumbur er klaufskt tröll. Hann skilur alls staðar eftir sig slóð. Getið þið rakið slóðina og náð lyklinum af honum?'
     ],
     stations: [
       {
@@ -141,7 +142,7 @@ window.RATLEIKUR = {
       },
       {
         place: 'rust', title: 'Rústin', icon: '🪨', tool: 'radar', toolAfterGame: true,
-        travel: 'Álfarnir hvísla: „Drumbur fór út að gömlu rústinni.“ Rústin er stór steinahrúga úti á miðri jörðinni. Það er langt að fara í myrkrinu. Haldið í höndina á fullorðna spæjaranum!',
+        travel: 'Álfarnir hvísla: „Drumbur fór út að gömlu rústinni.“ Rústin er stór steinahrúga úti á miðri jörðinni og þar sveima draugarnir! Finnið þið kaldan gustinn? Haldið hvítlauknum hátt upp og teljið saman upp að þremur! Hjúkk… draugurinn flúði. Haldið í höndina á fullorðna spæjaranum!',
         task: 'Drumbur faldi eitthvað við rústina og velti galdrasteini yfir tröllaratsjána. Leggið símann á jörðina á milli ykkar. Hvor heldur fingri á sinni hendi og þið veltið steininum burt SAMAN!',
         game: 'lift', gameOpts: { names: ['Jóhann', 'Hólmar'] },
         gameWin: 'Galdurinn er brotinn! Nú virkar tröllaratsjáin. Kveikið á henni og gangið hægt í kringum rústina. Því hraðar sem hún pípir, því nær eruð þið! Hvað funduð þið?',
@@ -156,7 +157,7 @@ window.RATLEIKUR = {
       },
       {
         place: 'baeli', title: 'Bæli Drumbs', icon: '💤', tool: 'sneak',
-        travel: 'Heyrið þið? Hrrrr… hrrrr… Drumbur er sofnaður! Bælið hans er rétt hjá stóra húsinu. Læðist!',
+        travel: 'Heyrið þið? Hrrrr… hrrrr… Drumbur er sofnaður! Hann er svo hræddur við draugana að hann breiddi teppi upp fyrir haus. Bælið hans er rétt hjá stóra húsinu. Læðist!',
         task: 'Læðist hljóðlega að bælinu. Drumbur má EKKI vakna! Hljóðmælirinn sýnir hvort hann heyrir í ykkur. Þegar þið eruð komin alveg að honum: hristið símann og blindið hann með töfraljósi!',
         game: 'shake',
         gameWin: 'Nú! Takið það sem Drumbur heldur á. Hvað er það?',
@@ -171,7 +172,7 @@ window.RATLEIKUR = {
       },
       {
         place: 'pottur', title: 'Heiti potturinn', icon: '🔥', finale: true,
-        travel: 'Fylgið ljósunum að heita pottinum. Þar faldi Drumbur kistuna. Tröll elska heitt vatn!'
+        travel: 'Fylgið ljósunum að heita pottinum. Þar faldi Drumbur kistuna. Tröll elska heitt vatn! Flýtið ykkur, áður en draugarnir finna hana!'
       }
     ]
   },
@@ -185,7 +186,7 @@ window.RATLEIKUR = {
     kids: ['Katrín', 'Aría'],
     kidsNom: 'Katrín og Aría',
     kidsDat: 'Katrínu og Aríu',
-    image: 'img/ketill.webp?v=1794653124',
+    image: 'img/ketill.webp?v=1794653795',
     theme: 'rune',
     intro: [
       'Katrín og Aría, rúnameistarar!',
@@ -193,7 +194,9 @@ window.RATLEIKUR = {
       'Hann átti kistu fulla af silfri og læsti henni með tveimur lásum.',
       'Annan lykilinn faldi hann á leynistað og lokaði honum með rúnalás. Kóðann risti hann með rúnum og faldi á fjórum stöðum á Stillu.',
       'Skilaboðin sjást bara þegar dimmir.',
-      'Í nótt stal tröllið Drumbur kistunni og hinum lyklinum. Strákarnir elta hann. Þið eigið að finna lykil Ketils!'
+      'Í nótt stal tröllið Drumbur kistunni og hinum lyklinum. Og þegar hann gróf hana upp vakti hann haugbúana, draugana sem hafa gætt silfursins í þúsund ár.',
+      'Nú leita þeir að kistunni í myrkrinu. Draugar þola hvorki ljós né hvítlauk. Berið hvítlauk Ketils um hálsinn og hafið vasaljósin tilbúin.',
+      'Strákarnir elta Drumb. Þið eigið að finna lykil Ketils, áður en draugarnir finna kistuna!'
     ],
     stations: [
       {
@@ -215,7 +218,7 @@ window.RATLEIKUR = {
       },
       {
         place: 'rust', title: 'Rústin', icon: '🧭', tool: 'compass', digit: 1,
-        travel: 'Næst: gamla rústin úti á miðri jörðinni. Þar þurfið þið áttavita Ketils. Hann er hér í símanum.',
+        travel: 'Næst: gamla rústin úti á miðri jörðinni. Rústin er gamli haugurinn og þaðan komu draugarnir. Gangið hljóðlega og hafið hvítlaukinn tilbúinn. Þar þurfið þið áttavita Ketils. Hann er hér í símanum.',
         task: 'Standið við rústina. Ketill faldi krukku merkta ᛝ {steps} skref í {dir}. Kveikið á áttavitanum, snúið ykkur þar til hann glóir grænn og teljið skrefin upphátt. Í krukkunni eru skilaboð á dulmáli. Ráðið í þau með hjóli Ketils hér fyrir neðan. Hver er ÖNNUR talan? Ef eitthvað annað glóir við rústina er það handa strákunum. Látið það vera!',
         hint: 'Á miðanum stendur hvernig á að stilla hjólið. Finnið hvern staf á innri hringnum og lesið stafinn fyrir ofan hann á ytri hringnum.',
         game: 'wheel', gate: false,
@@ -224,7 +227,7 @@ window.RATLEIKUR = {
       },
       {
         place: 'kjarr', title: 'Kjarrið', icon: '🌿', tool: 'keyonly',
-        travel: 'Ketill átti leynistað í kjarrinu vestast á jörðinni. Haldið áfram í vestur. Það er löng leið í myrkrinu. Haldið hópinn og leitið að einhverju sem glóir í kjarrinu!',
+        travel: 'Ketill átti leynistað í kjarrinu vestast á jörðinni. Haldið áfram í vestur. Það er löng leið í myrkrinu. Haldið hópinn og leitið að einhverju sem glóir í kjarrinu! En bíðið… heyrið þið hvíslið á milli runnanna? Draugur! Haldið hvítlauknum hátt upp og teljið saman upp að þremur… Hann flúði. Áfram!',
         task: 'Sjáið þið glóandi miðana? Á hverjum þeirra er einn stafur. Tínið ALLA miðana úr kjarrinu og komið með þá hingað. En Drumbur hengdi líka upp gildrur! Galdur Ketils segir ykkur hvaða miðar eru réttir. Haldið símanum flötum á milli ykkar og standið hvor á móti annarri. Önnur sér rúnirnar og hin hefur takkana. Þið verðið að tala saman!',
         game: 'duet', gameOpts: { names: ['Katrín', 'Aría'] },
         gameWin: 'Galdurinn virkaði! Miðarnir sem bera merki Ketils, ᛝ, eru réttir. Miðarnir með ᛞ eru gildrur frá Drumbi. Leggið þá til hliðar! Raðið svo stöfunum á réttu miðunum í eitt orð. Hvert eigið þið að fara næst?',
@@ -244,7 +247,7 @@ window.RATLEIKUR = {
       },
       {
         place: 'pallur', title: 'Útsýnispallurinn', icon: '🔭', tool: 'morse', digit: 3,
-        travel: 'Gangið til baka í átt að húsunum og klifrið upp á útsýnispallinn. Þaðan sést yfir alla jörðina.',
+        travel: 'Gangið til baka í átt að húsunum og klifrið upp á útsýnispallinn. Þaðan sést yfir alla jörðina. Flýtið ykkur, draugarnir eru komnir nær húsunum!',
         task: 'Snúið ykkur að húsinu og horfið á gluggann. Ljósviti blikkar Morse-skilaboð. Stutt blikk er punktur og langt blikk er strik. Skilaboðin byrja eftir RAUÐA ljósið. Pikkið með á takkann svo síminn hjálpi. Hver er SÍÐASTA talan?',
         hint: 'Skilaboðin eru eitt orð: tala skrifuð með bókstöfum.',
         success: 'Rúnakóðinn er kominn! Nú getið þið opnað rúnalásinn.',
@@ -263,15 +266,15 @@ window.RATLEIKUR = {
       },
       {
         place: 'pottur', title: 'Heiti potturinn', icon: '🔥', finale: true,
-        travel: 'Takið lykil Ketils með ykkur og fylgið ljósunum að heita pottinum. Drumbur faldi kistuna þar. Tröll elska heitt vatn! Jóhann og Hólmar koma þangað með lykil Drumbs.'
+        travel: 'Takið lykil Ketils með ykkur og fylgið ljósunum að heita pottinum. Drumbur faldi kistuna þar. Tröll elska heitt vatn! Jóhann og Hólmar koma þangað með lykil Drumbs. Flýtið ykkur, áður en draugarnir finna kistuna!'
       }
     ]
   },
 
   finale: {
     // Biðtexti Tröllaspæjaranna við kistuna (stelpurnar fá sinn texta í app.js)
-    waitRunir: 'Kistan er hér! En hún er læst með TVEIMUR lásum. Lykill Ketils opnar bara annan. Jóhann og Hólmar eru með lykil Drumbs. Ef þeir eru ekki komnir skuluð þið passa kistuna á meðan þið bíðið.',
-    waitTrollar: 'Kistan er hér! En hún er læst með TVEIMUR lásum. Lykill Drumbs opnar bara annan. Katrín og Aría eru að leita að hinum lyklinum. Passið kistuna á meðan þið bíðið. Litlu tröllin læðast að henni! Lýsið á þau með fingrinum.',
+    waitRunir: 'Kistan er hér! En hún er læst með TVEIMUR lásum. Lykill Ketils opnar bara annan. Jóhann og Hólmar eru með lykil Drumbs. Ef þeir eru ekki komnir skuluð þið passa kistuna á meðan þið bíðið. Haldið hvítlauknum á lofti!',
+    waitTrollar: 'Kistan er hér! En hún er læst með TVEIMUR lásum. Lykill Drumbs opnar bara annan. Katrín og Aría eru að leita að hinum lyklinum. Passið kistuna á meðan þið bíðið. Litlu draugarnir læðast að henni! Lýsið á þá með fingrinum.',
     trollLetter: [
       'Kæru Jóhann, Hólmar, Katrín og Aría.',
       'Fyrirgefið að ég tók kistuna. Mig langaði bara svo mikið í heita pottinn…',
