@@ -32,7 +32,7 @@
     <div class="wanted">
       <div class="w-top">Eftirlýstur</div>
       <div class="w-sub">fyrir að stela silfurkistu Ketils hængs</div>
-      <div class="w-img"><img src="img/troll.webp?v=1794653795" alt=""></div>
+      <div class="w-img"><img src="img/troll.webp?v=1794654108" alt=""></div>
       <div class="w-name">Tröllið Drumbur</div>
       <ul class="w-list">
         <li><b>Þekkist á:</b> risastóru kartöflunefi og mosa um allan kroppinn</li>
@@ -51,7 +51,7 @@
   const badge = (n, name) => `<div class="cert badge">
       <div class="b-head"><span class="b-ico">🔦</span><div><div class="b-t">Tröllaspæjari</div><div class="b-s">Spæjaraskírteini nr. 00${n}</div></div></div>
       <div class="b-body">
-        <div class="b-photo"><img src="img/troll.webp?v=1794653795" alt=""><span class="b-stamp">ELTUR</span></div>
+        <div class="b-photo"><img src="img/troll.webp?v=1794654108" alt=""><span class="b-stamp">ELTUR</span></div>
         <div class="b-fields">
           <div class="field">Nafn: <span class="hand">${name}</span></div>
           <div class="field">Undirskrift:</div>
@@ -68,7 +68,7 @@
       <div class="d-runes">${toRunes('RÚNAMEISTARI KETILS HÆNGS')}</div>
       <div class="d-t">Rúnameistari</div>
       <div class="d-body">
-        <img src="img/ketill.webp?v=1794653795" alt="">
+        <img src="img/ketill.webp?v=1794654108" alt="">
         <div>
           <p>Hér með staðfestist að</p>
           <div class="field big"><span class="hand">${name}</span></div>
@@ -118,7 +118,7 @@
   /* 8. Bréf Drumbs */
   pages.push(`<section class="page"><div class="frame"></div>
     <div class="trolletter">
-      <img src="img/troll.webp?v=1794653795" alt="">
+      <img src="img/troll.webp?v=1794654108" alt="">
       ${D.finale.trollLetter.map(l => `<p>${l.replace(/\n/g, '<br>')}</p>`).join('')}
       <div class="smudge"></div>
     </div>
@@ -131,7 +131,7 @@
       <div class="d-runes">${toRunes('STILLA')} ᛫ ${toRunes('SILFUR KETILS HÆNGS')}</div>
       <div class="a-t">Viðurkenning</div>
       <div class="a-s">Fjársjóðsfinnendur</div>
-      <img src="img/kista.webp?v=1794653795" alt="">
+      <img src="img/kista.webp?v=1794654108" alt="">
       <p>Hér með staðfestist að</p>
       ${[...D.trollar.kids, ...D.runir.kids].map(k => `<div class="field big"><span class="hand">${k}</span></div>`).join('')}
       <p>eltu tröllið Drumb, réðu í rúnir Ketils hængs og fundu silfrið hans á Stillu ${DATE}.</p>

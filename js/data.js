@@ -14,7 +14,7 @@ window.RATLEIKUR = {
   // ---- Sjálfgefnar stillingar (hægt að breyta í Höfuðstöðvunum) ----
   defaults: {
     lockCode: '4785',        // rúnakóðinn sem stelpurnar safna (4 tölustafir) — opnar rúnalásinn í appinu
-    glowCount: 5,            // fjöldi ljósastafa í gestahúsinu (strákar)
+    glowCount: 3,            // fjöldi ljósastafa í gestahúsinu (strákar)
     treeColor: 'graenn',     // litur ljósastafanna í trjánum (graenn | raudur | blar | gulur)
     compassDeg: 270,         // stefna frá rústinni að falinni krukku (270 = vestur)
     compassSteps: 25,        // skref frá rústinni
@@ -81,7 +81,7 @@ window.RATLEIKUR = {
     kids: ['Jóhann', 'Hólmar'],
     kidsNom: 'Jóhann og Hólmar',
     kidsDat: 'Jóhanni og Hólmari',
-    image: 'img/troll.webp?v=1794653795',
+    image: 'img/troll.webp?v=1794654108',
     theme: 'troll',
     intro: [
       'Hæ, Jóhann og Hólmar!',
@@ -186,7 +186,7 @@ window.RATLEIKUR = {
     kids: ['Katrín', 'Aría'],
     kidsNom: 'Katrín og Aría',
     kidsDat: 'Katrínu og Aríu',
-    image: 'img/ketill.webp?v=1794653795',
+    image: 'img/ketill.webp?v=1794654108',
     theme: 'rune',
     intro: [
       'Katrín og Aría, rúnameistarar!',
@@ -227,8 +227,8 @@ window.RATLEIKUR = {
       },
       {
         place: 'kjarr', title: 'Kjarrið', icon: '🌿', tool: 'keyonly',
-        travel: 'Ketill átti leynistað í kjarrinu vestast á jörðinni. Haldið áfram í vestur. Það er löng leið í myrkrinu. Haldið hópinn og leitið að einhverju sem glóir í kjarrinu! En bíðið… heyrið þið hvíslið á milli runnanna? Draugur! Haldið hvítlauknum hátt upp og teljið saman upp að þremur… Hann flúði. Áfram!',
-        task: 'Sjáið þið glóandi miðana? Á hverjum þeirra er einn stafur. Tínið ALLA miðana úr kjarrinu og komið með þá hingað. En Drumbur hengdi líka upp gildrur! Galdur Ketils segir ykkur hvaða miðar eru réttir. Haldið símanum flötum á milli ykkar og standið hvor á móti annarri. Önnur sér rúnirnar og hin hefur takkana. Þið verðið að tala saman!',
+        travel: 'Ketill átti leynistað í kjarrinu vestast á jörðinni. Haldið áfram í vestur. Það er löng leið í myrkrinu. Haldið hópinn og lýsið með vasaljósunum á runnana í jaðri kjarrsins! En bíðið… heyrið þið hvíslið á milli runnanna? Draugur! Haldið hvítlauknum hátt upp og teljið saman upp að þremur… Hann flúði. Áfram!',
+        task: 'Lýsið á runnana með vasaljósunum. Sjáið þið miðana? Þeir eru ellefu og á hverjum þeirra er einn stafur. Tínið ALLA miðana úr kjarrinu og komið með þá hingað. En Drumbur hengdi líka upp gildrur! Galdur Ketils segir ykkur hvaða miðar eru réttir. Haldið símanum flötum á milli ykkar og standið hvor á móti annarri. Önnur sér rúnirnar og hin hefur takkana. Þið verðið að tala saman!',
         game: 'duet', gameOpts: { names: ['Katrín', 'Aría'] },
         gameWin: 'Galdurinn virkaði! Miðarnir sem bera merki Ketils, ᛝ, eru réttir. Miðarnir með ᛞ eru gildrur frá Drumbi. Leggið þá til hliðar! Raðið svo stöfunum á réttu miðunum í eitt orð. Hvert eigið þið að fara næst?',
         hint: 'Það er kringlótt og hefur hvorki upphaf né endi.',

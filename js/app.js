@@ -98,20 +98,20 @@
     const st = k => p[k] ? (p[k].done ? 'Lokið ✓' : `Stöð ${p[k].i + 1} af ${D[k].stations.length}`) : `${D[k].stations.length} stöðvar`;
     app.innerHTML = `
     <div class="screen home">
-      <div class="hero"><div class="h-stage"><img class="h-base" src="img/hero-base.webp?v=1794653795" alt=""><img class="h-aur a1" src="img/hero-aurora.webp?v=1794653795" alt=""><img class="h-aur a2" src="img/hero-aurora.webp?v=1794653795" alt=""></div><div class="hero-fade"></div></div>
+      <div class="hero"><div class="h-stage"><img class="h-base" src="img/hero-base.webp?v=1794654108" alt=""><img class="h-aur a1" src="img/hero-aurora.webp?v=1794654108" alt=""><img class="h-aur a2" src="img/hero-aurora.webp?v=1794654108" alt=""></div><div class="hero-fade"></div></div>
       <div class="home-title">
         <div class="runeline">ᛊᛁᛚᚠᚢᚱ ᛫ ᚲᛖᛏᛁᛚᛊ ᛫ ᚺᚫᚾᚷᛊ</div>
         <h1 class="fraktur">Silfur Ketils hængs</h1>
         <p class="tag">Ratleikur á Stillu</p>
       </div>
-      <button class="introbtn"><img src="img/hero-base.webp?v=1794653795" alt=""><span class="ib-play">▶</span><span class="ib-txt">Sagan hefst · horfið saman</span></button>
+      <button class="introbtn"><img src="img/hero-base.webp?v=1794654108" alt=""><span class="ib-play">▶</span><span class="ib-txt">Sagan hefst · horfið saman</span></button>
       <div class="teams">
         <a class="teamcard tc-troll" href="#/lid/trollar">
-          <img src="img/troll.webp?v=1794653795" alt="">
+          <img src="img/troll.webp?v=1794654108" alt="">
           <div class="tc-body"><div class="tc-name cinzel">Tröllaspæjararnir</div><div class="tc-kids">Jóhann og Hólmar</div><div class="tc-sub">Rekið slóð tröllsins og náið lyklinum</div><div class="tc-meta">${st('trollar')}</div></div>
         </a>
         <a class="teamcard tc-rune" href="#/lid/runir">
-          <img src="img/ketill.webp?v=1794653795" alt="">
+          <img src="img/ketill.webp?v=1794654108" alt="">
           <div class="tc-body"><div class="tc-name cinzel">Rúnameistararnir</div><div class="tc-kids">Katrín og Aría</div><div class="tc-sub">Ráðið í rúnir Ketils og finnið lykilinn hans</div><div class="tc-meta">${st('runir')}</div></div>
         </a>
       </div>
@@ -124,7 +124,7 @@
 
   /* ---------- Myndbönd í fullum skjá (iPhone portrait) ---------- */
   const VIDS = { trollar: ['210', '211', '212', '213', '214', '215'], runir: ['220', '221', '222', '223', '224', '225', '226'], finale: '230' };
-  const VV = '?v=1794653795';
+  const VV = '?v=1794654108';
   function vidSrc(id) { return `video/ok-${id}.mp4${VV}`; }
   function prefetchVid(id) { if (!id || settings().videos === false) return; try { fetch(vidSrc(id), { priority: 'low' }).catch(() => { }); } catch (e) { } }
   function playVideo(src, onEnd, opts = {}) {
@@ -195,8 +195,8 @@
   const Voice = (() => {
     let man = null, unlocked = false, timer = 0;
     const el = new Audio(); el.preload = 'auto'; el.setAttribute('playsinline', '');
-    fetch('audio/voice.json?v=1794653795').then(r => r.json()).then(j => { man = j; document.documentElement.classList.add('has-voice'); }).catch(() => { });
-    const src = t => man && man[t] ? 'audio/' + man[t] + '?v=1794653795' : null;
+    fetch('audio/voice.json?v=1794654108').then(r => r.json()).then(j => { man = j; document.documentElement.classList.add('has-voice'); }).catch(() => { });
+    const src = t => man && man[t] ? 'audio/' + man[t] + '?v=1794654108' : null;
     // iOS: opna hljóðið í fyrstu snertingu svo síðari upplestur virki sjálfkrafa
     const unlock = () => {
       if (unlocked) return; unlocked = true;
@@ -429,7 +429,7 @@
   }
 
   function trollPeek() {
-    const t = document.createElement('div'); t.className = 'peek'; t.innerHTML = `<img src="img/troll.webp?v=1794653795" alt=""><div class="bubble">Hehe!</div>`;
+    const t = document.createElement('div'); t.className = 'peek'; t.innerHTML = `<img src="img/troll.webp?v=1794654108" alt=""><div class="bubble">Hehe!</div>`;
     document.body.appendChild(t); setTimeout(() => t.remove(), 2200);
   }
 
@@ -621,7 +621,7 @@
   function toolSneak(el) {
     el.innerHTML = `
       <div class="sneak">
-        <div class="sn-troll"><img src="img/troll.webp?v=1794653795" alt=""><div class="zzz"><span>z</span><span>z</span><span>Z</span></div><div class="sn-wake">HVAÐ?!</div></div>
+        <div class="sn-troll"><img src="img/troll.webp?v=1794654108" alt=""><div class="zzz"><span>z</span><span>z</span><span>Z</span></div><div class="sn-wake">HVAÐ?!</div></div>
         <div class="sn-meter"><div class="sn-bar"></div><div class="sn-line"></div></div>
         <div class="sn-info">Hljóðmælirinn sýnir hvort Drumbur heyrir í ykkur.</div>
         <div class="sn-row"><button class="chip sn-mic">🎤 Hljóðmælir</button><button class="chip sn-snore">🔊 Hrotur</button></div>
@@ -674,7 +674,7 @@
         ${ph === 'travel' ? `
           <p class="story">${st.travel} ${speakBtn(st.travel)}</p>
           <button class="btn big arrive">Við erum komin að pottinum! 📍</button>` : `
-          <div class="chest"><img src="img/kista.webp?v=1794653795" alt=""><div class="chest-glow"></div></div>
+          <div class="chest"><img src="img/kista.webp?v=1794654108" alt=""><div class="chest-glow"></div></div>
           <div class="locks">
             <div class="lock ${team === 'trollar' ? 'mine' : ''}"><span class="lk-i">🔑</span><b>Lás Drumbs</b><small>${team === 'trollar' ? 'Þið eruð með lykilinn hans Drumbs!' : D.trollar.kidsNom + ' eru með lykil Drumbs'}</small></div>
             <div class="lock ${team === 'runir' ? 'mine' : ''}"><span class="lk-i">🗝️</span><b>Lás Ketils</b><small>${team === 'runir' ? 'Þið eruð með lykil Ketils!' : D.runir.kidsNom + ' eru með lykil Ketils'}</small></div>
@@ -741,8 +741,8 @@
     app.innerHTML = `
     <div class="screen celebrate">
       <div class="cel-title"><div class="runeline">ᛊᛁᛚᚠᚢᚱ ᛫ ᚠᚢᚾᛞᛁᛞ</div><h1 class="fraktur">Silfrið er fundið!</h1></div>
-      <div class="chest open"><img src="img/kista.webp?v=1794653795" alt=""><div class="chest-glow"></div></div>
-      <div class="letter"><img src="img/troll.webp?v=1794653795" alt="" class="letter-troll">${L.map(l => `<p>${l.replace(/\n/g, '<br>')}</p>`).join('')}</div>
+      <div class="chest open"><img src="img/kista.webp?v=1794654108" alt=""><div class="chest-glow"></div></div>
+      <div class="letter"><img src="img/troll.webp?v=1794654108" alt="" class="letter-troll">${L.map(l => `<p>${l.replace(/\n/g, '<br>')}</p>`).join('')}</div>
       <p class="sig cinzel">Og frá mér: takk, kæru Jóhann, Hólmar, Katrín og Aría. Draugarnir eru sofnaðir aftur og silfrið er ykkar.<br>ᛝ Ketill hængur</p>
       <button class="btn more">🎆 Meiri flugeldar!</button>
       <a class="btn ghost" href="#/">Heim</a>
@@ -913,7 +913,7 @@
     const L = lockDigits(s), col = D.colors[s.treeColor].pl, colDat = { graenn: 'grænum', raudur: 'rauðum', blar: 'bláum', gulur: 'gulum' }[s.treeColor] || '';
     return [
       { h: '1. Að kaupa', items: [
-        'Ljósastafir (glowsticks): um 50 stk. í nokkrum litum, helst með armbandstengjum. Um 14 fara í leið strákanna, rúm 20 í leið stelpnanna og 6–8 í ljósaröðina að pottinum.',
+        'Ljósin sem eru til: 3 grænir, 2 bláir og 2 bleikir ljósastafir + 4 gulir glóhringir (eyrnalokkar). Það dugar: 2 bláir + 1 grænn í gestahúsið, 2 grænir í trén, 2 bleikir í álfaarmböndin og 4 gulu hringirnir í ljósahringinn. Allt annað finna krakkarnir með vasaljósunum.',
         '2 hengilásar með lykli (ef þeir eru ekki til heima)',
         'Súkkulaðipeningar eða eitthvað smá í kistuna'
       ] },
@@ -942,25 +942,25 @@
         'Opnið leikinn í síma hvors liðs og leyfið hljóðnema, staðsetningu og hreyfiskynjara þegar spurt er.'
       ] },
       { h: '5. Tröllaspæjararnir (felið kl. 14:30–15:30)', items: [
-        'FORSTOFA: Ullarsokkurinn með ljósastaf inni í. Allir klæða sig í forstofunni. Felið hann því vel (t.d. ofan í stígvéli) eða leggið hann þar rétt áður en strákarnir byrja.',
-        `GESTAHÚS: ${s.glowCount} ljósastafir faldir um allt herbergi (undir rúmi, bak við gardínur, í skóm). Hafið ljósin KVEIKT. Strákarnir slökkva þau sjálfir og þá birtast „tröllasteinarnir“.`,
-        `TRÉN VIÐ POTTINN: 3–4 ${col} ljósastafir hengdir hátt upp í greinarnar. Liturinn verður að vera rauður, grænn, blár eða gulur og sá sami og í Stillingum. Takið frá einn í sama lit fyrir lykil Drumbs.`,
-        'ÁLFAHÚSIÐ: Tvö ljósastafa-armbönd falin Á BAK VIÐ álfahúsið (t.d. undir fötu eða í poka) svo glóðin sjáist ekki fyrr en álfarnir segja frá.',
-        `RÚSTIN: Steinn með teiknuðu andliti (Steini litli) og ljósastafur undir honum. Felið hann 10–20 skref frá steinahrúgunni en ekki í ${dirName(s.compassDeg)} (þar er krukka stelpnanna). Standið á staðnum og skráið hann í Stillingum (Tröllaratsjáin).`,
-        `BÆLIÐ: Sunnan við aðalhúsið. Hrúga af teppum eins og sofandi tröll. Lykill Drumbs í „hendinni“ með ${colDat} ljósastaf (uppáhaldslitur Drumbs). Hinn ullarsokkurinn má standa út undan teppinu eins og tröllafótur.`
+        'FORSTOFA: Ullarsokkurinn (ekkert ljós, strákarnir finna hann með vasaljósi). Allir klæða sig í forstofunni. Felið hann því vel (t.d. ofan í stígvéli) eða leggið hann þar rétt áður en strákarnir byrja.',
+        `GESTAHÚS: ${s.glowCount} ljósastafir (2 bláir og 1 grænn) faldir um allt herbergi (undir rúmi, bak við gardínur, í skóm). Hafið ljósin KVEIKT. Strákarnir slökkva þau sjálfir og þá birtast „tröllasteinarnir“.`,
+        `TRÉN VIÐ POTTINN: 2 ${col} ljósastafir hengdir hátt upp í greinarnar. Liturinn verður að vera sá sami og í Stillingum.`,
+        'ÁLFAHÚSIÐ: Bleiku ljósastafirnir tveir, beygðir í armbönd (límband eða tengi), faldir Á BAK VIÐ álfahúsið (t.d. undir fötu eða í poka) svo glóðin sjáist ekki fyrr en álfarnir segja frá.',
+        `RÚSTIN: Steinn með teiknuðu andliti (Steini litli), ekkert ljós. Felið hann 10–20 skref frá steinahrúgunni en ekki í ${dirName(s.compassDeg)} (þar er krukka stelpnanna). Standið á staðnum og skráið hann í Stillingum (Tröllaratsjáin).`,
+        `BÆLIÐ: Sunnan við aðalhúsið. Hrúga af teppum eins og sofandi tröll. Lykill Drumbs í „hendinni“ (ekkert ljós, strákarnir lýsa á hann). Hinn ullarsokkurinn má standa út undan teppinu eins og tröllafótur.`
       ] },
       { h: '6. Rúnameistararnir (felið kl. 14:30–15:30)', items: [
         'AÐALHÚS: Ekkert að fela. Rúnirnar birtast á skjánum. Gefið stelpunum rúnameistarabréfin og rúnalyklana (Prentefni) í upphafi.',
         `GESTAHÚS: Spegilmiðinn (Prentefni, miði 1) hengdur LAUST á spegilinn, t.d. stunginn í rammann eða festur með einni límbandsræmu. Stelpurnar taka hann og halda honum upp að speglinum. Rúnirnar segja að fyrsta talan sé ${L[0]}.`,
-        `RÚSTIN: Krukka merkt ᛝ með dulmálsmiðanum (miði 2, önnur talan ${L[1]}) og ljósastaf. Gangið ${s.compassSteps} stutt barnaskref í ${dirName(s.compassDeg)} frá rústinni og felið hana þar í hvarfi (bak við þúfu eða stein) svo glóðin sjáist ekki frá rústinni.`,
-        'KJARRIÐ: 11 miðar (Prentefni) bundnir á ljósastafi og hengdir í runnana í jaðri kjarrsins sem snýr að húsunum, á litlu svæði (10–15 m). 7 réttir (ᛝ, mynda HRINGUR) og 4 gildrur (ᛞ). Glóðin vísar stelpunum leiðina í myrkrinu.',
-        `LJÓSAHRINGURINN: 8–10 ljósastafir lagðir í hring (2–3 m) úti í mónum, sunnan við kjarrið. Veljið stað sem sést vel frá kjarrinu en EKKI á leiðinni frá rústinni út í kjarrið (t.d. í laut eða í hvarfi við kjarrið). Annars fara stelpurnar beint í hringinn. Flöskuskeytið (miði 3, gátan, svar ${L[2]}) í miðjunni.`,
+        `RÚSTIN: Krukka merkt ᛝ með dulmálsmiðanum (miði 2, önnur talan ${L[1]}), ekkert ljós. Gangið ${s.compassSteps} stutt barnaskref í ${dirName(s.compassDeg)} frá rústinni og felið hana þar, t.d. bak við þúfu eða stein. Stelpurnar finna hana með vasaljósi.`,
+        'KJARRIÐ: 11 miðar (Prentefni) í plastpokum hengdir á greinarnar (EKKI á ljósastafi, þó að prentaða blaðið segi það) í runnana í jaðri kjarrsins sem snýr að húsunum, á litlu svæði (10–15 m). 7 réttir (ᛝ, mynda HRINGUR) og 4 gildrur (ᛞ). Stelpurnar lýsa á runnana með vasaljósunum. Hengið miðana þar sem ljós endurkastast vel af hvíta pappírnum.',
+        `LJÓSAHRINGURINN: 4 gulu glóhringirnir lagðir í hring (um 1,5 m) úti í mónum, helst á þúfur svo þeir sjáist, sunnan við kjarrið. Veljið stað sem sést vel frá kjarrinu en EKKI á leiðinni frá rústinni út í kjarrið (t.d. í laut eða í hvarfi við kjarrið). Annars fara stelpurnar beint í hringinn. Flöskuskeytið (miði 3, gátan, svar ${L[2]}) í miðjunni.`,
         `ÚTSÝNISPALLURINN: Sími eða spjaldtölva í glugga sem sést frá pallinum. Opnið Ljósvitann (blikkar ${fold(digitWord(L[3]))}). Fulla birtu á skjáinn.`,
         `LYKILL KETILS: Falinn ${s.girlsKeyPlace}, í poka eða krukku merktri ᛝ. EKKI með ljósastaf: stelpurnar standa á pallinum í Morse-þrautinni og myndu sjá glóðina strax. Þær finna lykilinn með vasaljósi.`
       ] },
       { h: '7. Lokastöðin', items: [
         'Kistan við pottinn, læst með báðum lásunum og falin undir dökku teppi (strákarnir eru við trén rétt hjá). Bréf Drumbs, viðurkenningin og silfrið inni í.',
-        'Ljósaröð: 6–8 ljósastafir frá aðalhúsinu að pottinum. Brjótið þá og leggið út þegar strákarnir eru komnir út á rústina (fjarstýringin sýnir hvar þeir eru). Ef enginn er laus má leggja hana út fyrir leik.'
+        'Engin ljósaröð: kveikið útiljósin við pottinn svo krakkarnir „fylgi ljósunum“ þangað.'
       ] },
       { h: '8. Í leiknum', items: [
         'Allir horfa saman á upphafsmyndbandið (Sagan hefst á forsíðunni).',
