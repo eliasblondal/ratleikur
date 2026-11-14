@@ -123,6 +123,7 @@ html.has-voice .speak { display: inline-block; }
 .tc-sub { font-size: 16px; color: var(--ink2); margin: 6px 0 8px; font-style: italic; }
 .tc-meta { font-family: 'Fell SC', serif; font-size: 15px; color: var(--ink); }
 .tc-meta::before { content: '❦ '; color: var(--rubric); }
+.teaserlink { display: block; text-align: center; margin-top: 30px; font-size: 16px; color: #e9c56c; text-decoration: none; }
 .hqlink { display: block; text-align: center; margin-top: 34px; font-size: 14px; color: #c9b68d; }
 
 /* ---------- Inngangur ---------- */

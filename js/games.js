@@ -53,7 +53,7 @@
 
   /* ============ 2. HRISTU! — hristu símann til að lýsa á tröllið (eða pikkaðu hratt) ============ */
   G.shake = function (el, o, win) {
-    el.innerHTML = `<div class="g-shake"><div class="gs-troll"><img src="img/troll.webp?v=1794571856" alt=""><div class="gs-flash"></div></div>
+    el.innerHTML = `<div class="g-shake"><div class="gs-troll"><img src="img/troll.webp?v=1794653124" alt=""><div class="gs-flash"></div></div>
       <div class="gs-bar"><i></i></div><div class="gs-info">Þegar þið eruð komin alveg að Drumbi: hristið símann eins fast og þið getið til að blinda hann með töfraljósi!</div>
       <button class="btn big gs-go">💥 Byrja að hrista</button></div>`;
     const bar = $('.gs-bar i', el), img = $('.gs-troll img', el), fl = $('.gs-flash', el), info = $('.gs-info', el);
