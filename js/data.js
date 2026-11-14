@@ -81,7 +81,7 @@ window.RATLEIKUR = {
     kids: ['Jóhann', 'Hólmar'],
     kidsNom: 'Jóhann og Hólmar',
     kidsDat: 'Jóhanni og Hólmari',
-    image: 'img/troll.webp?v=1794654108',
+    image: 'img/troll.webp?v=1794654952',
     theme: 'troll',
     intro: [
       'Hæ, Jóhann og Hólmar!',
@@ -186,7 +186,7 @@ window.RATLEIKUR = {
     kids: ['Katrín', 'Aría'],
     kidsNom: 'Katrín og Aría',
     kidsDat: 'Katrínu og Aríu',
-    image: 'img/ketill.webp?v=1794654108',
+    image: 'img/ketill.webp?v=1794654952',
     theme: 'rune',
     intro: [
       'Katrín og Aría, rúnameistarar!',

@@ -77,7 +77,7 @@
     const h = location.hash.replace(/^#\/?/, '');
     document.body.className = '';
     if (h.startsWith('s/')) {
-      try { const s = JSON.parse(decodeURIComponent(escape(atob(h.slice(2))))); saveSettings(s); toast('Stillingar sóttar ✓'); } catch (e) { toast('Gat ekki lesið stillingar'); }
+      try { const s = JSON.parse(decodeURIComponent(escape(atob(h.slice(2))))); saveSettings(s); pushSettings(); toast('Stillingar sóttar ✓'); } catch (e) { toast('Gat ekki lesið stillingar'); }
       location.hash = '#/'; return;
     }
     if (h === 'lid/trollar') return renderTeam('trollar');
@@ -98,20 +98,20 @@
     const st = k => p[k] ? (p[k].done ? 'Lokið ✓' : `Stöð ${p[k].i + 1} af ${D[k].stations.length}`) : `${D[k].stations.length} stöðvar`;
     app.innerHTML = `
     <div class="screen home">
-      <div class="hero"><div class="h-stage"><img class="h-base" src="img/hero-base.webp?v=1794654108" alt=""><img class="h-aur a1" src="img/hero-aurora.webp?v=1794654108" alt=""><img class="h-aur a2" src="img/hero-aurora.webp?v=1794654108" alt=""></div><div class="hero-fade"></div></div>
+      <div class="hero"><div class="h-stage"><img class="h-base" src="img/hero-base.webp?v=1794654952" alt=""><img class="h-aur a1" src="img/hero-aurora.webp?v=1794654952" alt=""><img class="h-aur a2" src="img/hero-aurora.webp?v=1794654952" alt=""></div><div class="hero-fade"></div></div>
       <div class="home-title">
         <div class="runeline">ᛊᛁᛚᚠᚢᚱ ᛫ ᚲᛖᛏᛁᛚᛊ ᛫ ᚺᚫᚾᚷᛊ</div>
         <h1 class="fraktur">Silfur Ketils hængs</h1>
         <p class="tag">Ratleikur á Stillu</p>
       </div>
-      <button class="introbtn"><img src="img/hero-base.webp?v=1794654108" alt=""><span class="ib-play">▶</span><span class="ib-txt">Sagan hefst · horfið saman</span></button>
+      <button class="introbtn"><img src="img/hero-base.webp?v=1794654952" alt=""><span class="ib-play">▶</span><span class="ib-txt">Sagan hefst · horfið saman</span></button>
       <div class="teams">
         <a class="teamcard tc-troll" href="#/lid/trollar">
-          <img src="img/troll.webp?v=1794654108" alt="">
+          <img src="img/troll.webp?v=1794654952" alt="">
           <div class="tc-body"><div class="tc-name cinzel">Tröllaspæjararnir</div><div class="tc-kids">Jóhann og Hólmar</div><div class="tc-sub">Rekið slóð tröllsins og náið lyklinum</div><div class="tc-meta">${st('trollar')}</div></div>
         </a>
         <a class="teamcard tc-rune" href="#/lid/runir">
-          <img src="img/ketill.webp?v=1794654108" alt="">
+          <img src="img/ketill.webp?v=1794654952" alt="">
           <div class="tc-body"><div class="tc-name cinzel">Rúnameistararnir</div><div class="tc-kids">Katrín og Aría</div><div class="tc-sub">Ráðið í rúnir Ketils og finnið lykilinn hans</div><div class="tc-meta">${st('runir')}</div></div>
         </a>
       </div>
@@ -124,7 +124,7 @@
 
   /* ---------- Myndbönd í fullum skjá (iPhone portrait) ---------- */
   const VIDS = { trollar: ['210', '211', '212', '213', '214', '215'], runir: ['220', '221', '222', '223', '224', '225', '226'], finale: '230' };
-  const VV = '?v=1794654108';
+  const VV = '?v=1794654952';
   function vidSrc(id) { return `video/ok-${id}.mp4${VV}`; }
   function prefetchVid(id) { if (!id || settings().videos === false) return; try { fetch(vidSrc(id), { priority: 'low' }).catch(() => { }); } catch (e) { } }
   function playVideo(src, onEnd, opts = {}) {
@@ -195,8 +195,8 @@
   const Voice = (() => {
     let man = null, unlocked = false, timer = 0;
     const el = new Audio(); el.preload = 'auto'; el.setAttribute('playsinline', '');
-    fetch('audio/voice.json?v=1794654108').then(r => r.json()).then(j => { man = j; document.documentElement.classList.add('has-voice'); }).catch(() => { });
-    const src = t => man && man[t] ? 'audio/' + man[t] + '?v=1794654108' : null;
+    fetch('audio/voice.json?v=1794654952').then(r => r.json()).then(j => { man = j; document.documentElement.classList.add('has-voice'); }).catch(() => { });
+    const src = t => man && man[t] ? 'audio/' + man[t] + '?v=1794654952' : null;
     // iOS: opna hljóðið í fyrstu snertingu svo síðari upplestur virki sjálfkrafa
     const unlock = () => {
       if (unlocked) return; unlocked = true;
@@ -429,7 +429,7 @@
   }
 
   function trollPeek() {
-    const t = document.createElement('div'); t.className = 'peek'; t.innerHTML = `<img src="img/troll.webp?v=1794654108" alt=""><div class="bubble">Hehe!</div>`;
+    const t = document.createElement('div'); t.className = 'peek'; t.innerHTML = `<img src="img/troll.webp?v=1794654952" alt=""><div class="bubble">Hehe!</div>`;
     document.body.appendChild(t); setTimeout(() => t.remove(), 2200);
   }
 
@@ -621,7 +621,7 @@
   function toolSneak(el) {
     el.innerHTML = `
       <div class="sneak">
-        <div class="sn-troll"><img src="img/troll.webp?v=1794654108" alt=""><div class="zzz"><span>z</span><span>z</span><span>Z</span></div><div class="sn-wake">HVAÐ?!</div></div>
+        <div class="sn-troll"><img src="img/troll.webp?v=1794654952" alt=""><div class="zzz"><span>z</span><span>z</span><span>Z</span></div><div class="sn-wake">HVAÐ?!</div></div>
         <div class="sn-meter"><div class="sn-bar"></div><div class="sn-line"></div></div>
         <div class="sn-info">Hljóðmælirinn sýnir hvort Drumbur heyrir í ykkur.</div>
         <div class="sn-row"><button class="chip sn-mic">🎤 Hljóðmælir</button><button class="chip sn-snore">🔊 Hrotur</button></div>
@@ -674,7 +674,7 @@
         ${ph === 'travel' ? `
           <p class="story">${st.travel} ${speakBtn(st.travel)}</p>
           <button class="btn big arrive">Við erum komin að pottinum! 📍</button>` : `
-          <div class="chest"><img src="img/kista.webp?v=1794654108" alt=""><div class="chest-glow"></div></div>
+          <div class="chest"><img src="img/kista.webp?v=1794654952" alt=""><div class="chest-glow"></div></div>
           <div class="locks">
             <div class="lock ${team === 'trollar' ? 'mine' : ''}"><span class="lk-i">🔑</span><b>Lás Drumbs</b><small>${team === 'trollar' ? 'Þið eruð með lykilinn hans Drumbs!' : D.trollar.kidsNom + ' eru með lykil Drumbs'}</small></div>
             <div class="lock ${team === 'runir' ? 'mine' : ''}"><span class="lk-i">🗝️</span><b>Lás Ketils</b><small>${team === 'runir' ? 'Þið eruð með lykil Ketils!' : D.runir.kidsNom + ' eru með lykil Ketils'}</small></div>
@@ -741,8 +741,8 @@
     app.innerHTML = `
     <div class="screen celebrate">
       <div class="cel-title"><div class="runeline">ᛊᛁᛚᚠᚢᚱ ᛫ ᚠᚢᚾᛞᛁᛞ</div><h1 class="fraktur">Silfrið er fundið!</h1></div>
-      <div class="chest open"><img src="img/kista.webp?v=1794654108" alt=""><div class="chest-glow"></div></div>
-      <div class="letter"><img src="img/troll.webp?v=1794654108" alt="" class="letter-troll">${L.map(l => `<p>${l.replace(/\n/g, '<br>')}</p>`).join('')}</div>
+      <div class="chest open"><img src="img/kista.webp?v=1794654952" alt=""><div class="chest-glow"></div></div>
+      <div class="letter"><img src="img/troll.webp?v=1794654952" alt="" class="letter-troll">${L.map(l => `<p>${l.replace(/\n/g, '<br>')}</p>`).join('')}</div>
       <p class="sig cinzel">Og frá mér: takk, kæru Jóhann, Hólmar, Katrín og Aría. Draugarnir eru sofnaðir aftur og silfrið er ykkar.<br>ᛝ Ketill hængur</p>
       <button class="btn more">🎆 Meiri flugeldar!</button>
       <a class="btn ghost" href="#/">Heim</a>
@@ -1021,11 +1021,12 @@
         <button class="btn save">Vista</button>
       </section>
       <section class="hqsec"><h3 class="cinzel">Tröllaratsjáin (rústin)</h3>
-        <p>Standið þar sem steinninn er falinn og ýtið á takkann. Gerið þetta á símanum sem strákarnir nota. Eða sendið stillingarnar á milli með hlekknum hér fyrir neðan.</p>
+        <p>Standið þar sem steinninn er falinn og ýtið á takkann. Staðsetningin fer sjálfkrafa í hin tækin.</p>
         <p class="gps">${s.radar ? `Skráð: ${s.radar.lat.toFixed(6)}, ${s.radar.lng.toFixed(6)}` : 'Ekki skráð. Þá segir fullorðinn heitt/kalt.'}</p>
         <button class="btn gpsbtn">📍 Skrá falinn stað hér</button>
       </section>
-      <section class="hqsec"><h3 class="cinzel">Senda stillingar í annað tæki</h3>
+      <section class="hqsec"><h3 class="cinzel">Stillingar í öðrum tækjum</h3>
+        <p>Þegar þú vistar fara stillingarnar sjálfkrafa í öll hin tækin (síma, spjaldtölvu, ljósvitann) næst þegar síðan er opnuð, eða innan tveggja mínútna. Hlekkurinn er bara til vara ef netið bregst.</p>
         <button class="btn sharebtn">🔗 Afrita hlekk með stillingum</button>
       </section>
       <section class="hqsec"><h3 class="cinzel">Staða liðanna</h3>
@@ -1064,7 +1065,7 @@
         const code = $('.f-code').value.replace(/\D/g, '');
         if (code.length !== 4) return toast('Kóðinn þarf að vera 4 tölustafir');
         saveSettings({ lockCode: code, girlsKeyPlace: $('.f-key').value.trim() || D.defaults.girlsKeyPlace, glowCount: +$('.f-glow').value, treeColor: $('.f-color').value, compassDeg: +$('.f-deg').value % 360, compassSteps: +$('.f-steps').value, videos: $('.f-vids').checked, voice: $('.f-voice').checked });
-        toast('Vistað ✓'); renderHQ();
+        toast('Vistað ✓'); pushSettings(); renderHQ();
       });
       $('.gpsbtn').addEventListener('click', e => {
         if (!navigator.geolocation) return toast('Engin staðsetning í þessu tæki');
@@ -1075,7 +1076,7 @@
           if (!pts.length) { toast('Fékk ekki staðsetningu'); renderHQ(); return; }
           pts.sort((a, b) => a.accuracy - b.accuracy); const best = pts.slice(0, Math.max(1, Math.ceil(pts.length / 2)));
           const lat = best.reduce((x, p) => x + p.latitude, 0) / best.length, lng = best.reduce((x, p) => x + p.longitude, 0) / best.length;
-          saveSettings({ radar: { lat, lng } }); toast(`Skráð ✓ (±${Math.round(best[0].accuracy)} m)`); renderHQ();
+          saveSettings({ radar: { lat, lng } }); pushSettings(); toast(`Skráð ✓ (±${Math.round(best[0].accuracy)} m)`); renderHQ();
         }, 10000);
       });
       $('.sharebtn').addEventListener('click', async () => {
@@ -1096,7 +1097,31 @@
     }
   };
 
+  /* ================= Samstilling stillinga milli tækja ================= */
+  function pushSettings() {
+    const at = Date.now(); LS.set('settingsAt', at);
+    Remote.send({ cmd: 'settings', s: LS.get('settings', {}), sat: at });
+  }
+  let pulling = false;
+  async function pullSettings() {
+    if (pulling) return; pulling = true;
+    try {
+      const r = await fetch('https://ntfy.sh/' + encodeURIComponent(D.remoteTopic) + '/json?poll=1&since=24h', { cache: 'no-store' });
+      const txt = await r.text(); let best = null;
+      txt.split('\n').forEach(line => { try { const d = JSON.parse(line); if (d.event && d.event !== 'message') return; const m = JSON.parse(d.message); if (m.cmd === 'settings' && m.s && m.sat && (!best || m.sat > best.sat)) best = m; } catch (e) { } });
+      if (best && best.sat > LS.get('settingsAt', 0)) {
+        LS.set('settings', best.s); LS.set('settingsAt', best.sat);
+        const h = location.hash.replace(/^#\/?/, '');
+        const ae = document.activeElement; if (h === '' || (h === 'hq' && !(ae && /INPUT|SELECT|TEXTAREA/.test(ae.tagName)))) route();
+        toast('Stillingar uppfærðar ✓');
+      }
+    } catch (e) { } finally { pulling = false; }
+  }
+  document.addEventListener('visibilitychange', () => { if (!document.hidden) pullSettings(); });
+  setInterval(pullSettings, 90000);
+
   /* ================= Ræsing ================= */
   FX.sky(document.getElementById('sky'));
   route();
+  pullSettings();
 })();
