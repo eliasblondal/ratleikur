@@ -81,7 +81,7 @@ window.RATLEIKUR = {
     kids: ['Jóhann', 'Hólmar'],
     kidsNom: 'Jóhann og Hólmar',
     kidsDat: 'Jóhanni og Hólmari',
-    image: 'img/troll.webp?v=1794654952',
+    image: 'img/troll.webp?v=1794656451',
     theme: 'troll',
     intro: [
       'Hæ, Jóhann og Hólmar!',
@@ -186,7 +186,7 @@ window.RATLEIKUR = {
     kids: ['Katrín', 'Aría'],
     kidsNom: 'Katrín og Aría',
     kidsDat: 'Katrínu og Aríu',
-    image: 'img/ketill.webp?v=1794654952',
+    image: 'img/ketill.webp?v=1794656451',
     theme: 'rune',
     intro: [
       'Katrín og Aría, rúnameistarar!',
@@ -271,10 +271,27 @@ window.RATLEIKUR = {
     ]
   },
 
+  // Hver byrjar? (lítur út fyrir að vera tilviljun en strákarnir byrja alltaf)
+  draw: {
+    intro: 'Nú eru draugarnir á kreiki og aðeins eitt lið má fara út í myrkrið í einu. Hvort liðið byrjar? Látum örlögin ráða!',
+    result: 'Örlögin hafa talað! Tröllaspæjararnir hefja leik. Jóhann og Hólmar, setjið hvítlaukinn um hálsinn og farið í forstofuna. Katrín og Aría, þið verðið eftir í húsinu. Ketill hefur leyniverkefni handa ykkur.'
+  },
+
+  // Leyniverkefni Rúnameistaranna inni í húsinu meðan strákarnir eru úti
+  bid: {
+    intro: 'Rúnameistarar! Á meðan Tröllaspæjararnir eru úti í myrkrinu fáið þið þrjú leyniverkefni frá Katli. Þegar strákarnir koma að heita pottinum er komið að ykkur.',
+    garlic: 'Fyrsta verkefnið: hvítlauksvörnin. Búið til hvítlauksfestar, eina fyrir hvora ykkar og eina fyrir leiðsögumanninn. Bindið bandið vel utan um hvítlauksrifið. Draugarnir finna lyktina langar leiðir!',
+    morse: 'Annað verkefnið: merkjaskóli Ketils. Ketill talaði við skipin með ljósmerkjum. Fyrst kemur rautt ljós og svo byrjar orðið. Stutt ljós er punktur og langt ljós er strik. Pikkið stafina á takkann. Þetta þurfið þið að kunna seinna í leiknum!',
+    words: ['SOS', 'KISTA', 'DRAUGUR', 'PABBI'],
+    morseDone: 'Ha ha! Ketill segir að pabbi ykkar sé líka smá tröll. Þið eruð orðnar alvöru merkjameistarar!',
+    spy: 'Þriðja verkefnið: njósnaturninn. Hér sjáið þið hvar Tröllaspæjararnir eru. Fylgist vel með. Þegar þeir koma að heita pottinum er komið að ykkur!',
+    go: 'Tröllaspæjararnir eru komnir að pottinum! Nú er komið að ykkur, Rúnameistarar. Setjið hvítlauksfestarnar um hálsinn, takið vasaljósin og hefjið leikinn!'
+  },
+
   finale: {
     // Biðtexti Tröllaspæjaranna við kistuna (stelpurnar fá sinn texta í app.js)
     waitRunir: 'Kistan er hér! En hún er læst með TVEIMUR lásum. Lykill Ketils opnar bara annan. Jóhann og Hólmar eru með lykil Drumbs. Ef þeir eru ekki komnir skuluð þið passa kistuna á meðan þið bíðið. Haldið hvítlauknum á lofti!',
-    waitTrollar: 'Kistan er hér! En hún er læst með TVEIMUR lásum. Lykill Drumbs opnar bara annan. Katrín og Aría eru að leita að hinum lyklinum. Passið kistuna á meðan þið bíðið. Litlu draugarnir læðast að henni! Lýsið á þá með fingrinum.',
+    waitTrollar: 'Kistan er hér! En hún er læst með TVEIMUR lásum. Lykill Drumbs opnar bara annan. Nú fara Katrín og Aría af stað að leita að hinum lyklinum. Lýsið á litlu draugana við kistuna með fingrinum og farið svo inn að hlýja ykkur. Passið lykil Drumbs vel! Síminn lætur vita þegar þær koma að pottinum.',
     trollLetter: [
       'Kæru Jóhann, Hólmar, Katrín og Aría.',
       'Fyrirgefið að ég tók kistuna. Mig langaði bara svo mikið í heita pottinn…',

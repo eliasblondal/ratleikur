@@ -73,7 +73,7 @@
   /* ================= Leiðir ================= */
   function route() {
     cleanup(); window.scrollTo(0, 0);
-    $$('.success, .modal, .peek, .torchlight').forEach(x => x.remove());
+    $$('.success, .modal, .peek, .torchlight, .draw-ov').forEach(x => x.remove());
     const h = location.hash.replace(/^#\/?/, '');
     document.body.className = '';
     if (h.startsWith('s/')) {
@@ -82,6 +82,7 @@
     }
     if (h === 'lid/trollar') return renderTeam('trollar');
     if (h === 'lid/runir') return renderTeam('runir');
+    if (h === 'bid') return renderBid();
     if (h === 'hq') return renderHQ();
     if (h === 'viti') return renderBeacon();
     if (h === 'fjarstyring') return renderRemote();
@@ -98,20 +99,22 @@
     const st = k => p[k] ? (p[k].done ? 'Lokið ✓' : `Stöð ${p[k].i + 1} af ${D[k].stations.length}`) : `${D[k].stations.length} stöðvar`;
     app.innerHTML = `
     <div class="screen home">
-      <div class="hero"><div class="h-stage"><img class="h-base" src="img/hero-base.webp?v=1794654952" alt=""><img class="h-aur a1" src="img/hero-aurora.webp?v=1794654952" alt=""><img class="h-aur a2" src="img/hero-aurora.webp?v=1794654952" alt=""></div><div class="hero-fade"></div></div>
+      <div class="hero"><div class="h-stage"><img class="h-base" src="img/hero-base.webp?v=1794656451" alt=""><img class="h-aur a1" src="img/hero-aurora.webp?v=1794656451" alt=""><img class="h-aur a2" src="img/hero-aurora.webp?v=1794656451" alt=""></div><div class="hero-fade"></div></div>
       <div class="home-title">
         <div class="runeline">ᛊᛁᛚᚠᚢᚱ ᛫ ᚲᛖᛏᛁᛚᛊ ᛫ ᚺᚫᚾᚷᛊ</div>
         <h1 class="fraktur">Silfur Ketils hængs</h1>
         <p class="tag">Ratleikur á Stillu</p>
       </div>
-      <button class="introbtn"><img src="img/hero-base.webp?v=1794654952" alt=""><span class="ib-play">▶</span><span class="ib-txt">Sagan hefst · horfið saman</span></button>
+      <button class="introbtn"><img src="img/hero-base.webp?v=1794656451" alt=""><span class="ib-play">▶</span><span class="ib-txt">Sagan hefst · horfið saman</span></button>
+      <button class="drawbtn"><span class="db-dice">🎲</span><span class="db-t cinzel">Hver byrjar?<small>Ýtið þegar allir eru saman</small></span></button>
+      ${LS.get('drawn', null) ? `<a class="bidlink" href="#/bid">🤫 Leyniverkefni Rúnameistaranna</a>` : ''}
       <div class="teams">
         <a class="teamcard tc-troll" href="#/lid/trollar">
-          <img src="img/troll.webp?v=1794654952" alt="">
+          <img src="img/troll.webp?v=1794656451" alt="">
           <div class="tc-body"><div class="tc-name cinzel">Tröllaspæjararnir</div><div class="tc-kids">Jóhann og Hólmar</div><div class="tc-sub">Rekið slóð tröllsins og náið lyklinum</div><div class="tc-meta">${st('trollar')}</div></div>
         </a>
         <a class="teamcard tc-rune" href="#/lid/runir">
-          <img src="img/ketill.webp?v=1794654952" alt="">
+          <img src="img/ketill.webp?v=1794656451" alt="">
           <div class="tc-body"><div class="tc-name cinzel">Rúnameistararnir</div><div class="tc-kids">Katrín og Aría</div><div class="tc-sub">Ráðið í rúnir Ketils og finnið lykilinn hans</div><div class="tc-meta">${st('runir')}</div></div>
         </a>
       </div>
@@ -120,11 +123,59 @@
     </div>`;
     $$('.teamcard').forEach(a => a.addEventListener('click', () => FX.sound.unlock()));
     $('.introbtn').addEventListener('click', playIntro);
+    $('.drawbtn').addEventListener('click', playDraw);
+  }
+
+  /* ---------- Hver byrjar? (lítur út eins og tilviljun en strákarnir byrja alltaf) ---------- */
+  function playDraw() {
+    FX.sound.unlock(); Voice.stop();
+    const o = document.createElement('div'); o.className = 'draw-ov';
+    o.innerHTML = `<button class="vo-close dr-close" aria-label="Loka">✕</button>
+      <div class="dr-title cinzel">Hver byrjar?</div>
+      <div class="dr-cards">
+        <div class="dr-card" data-t="trollar"><img src="img/troll.webp?v=1794656451" alt=""><b class="cinzel">Tröllaspæjararnir</b><small>Jóhann og Hólmar</small></div>
+        <div class="dr-card" data-t="runir"><img src="img/ketill.webp?v=1794656451" alt=""><b class="cinzel">Rúnameistararnir</b><small>Katrín og Aría</small></div>
+      </div>
+      <p class="dr-text">${D.draw.intro}</p>
+      <div class="dr-btns">
+        <a class="btn big huge" href="#/lid/trollar">Af stað, Tröllaspæjarar! 🔦</a>
+        <a class="btn big ghost dr-girls" href="#/bid">🤫 Leyniverkefni Rúnameistaranna</a>
+      </div>`;
+    document.body.appendChild(o); requestAnimationFrame(() => o.classList.add('in'));
+    const cards = $$('.dr-card', o), tms = []; let dead = false;
+    const close = () => { dead = true; tms.forEach(clearTimeout); Voice.stop(); o.remove(); };
+    $('.dr-close', o).addEventListener('click', close);
+    $$('.dr-btns a', o).forEach(a => a.addEventListener('click', () => { dead = true; tms.forEach(clearTimeout); }));
+    Voice.auto(D.draw.intro, 300);
+    // hraðinn minnkar smám saman; næstsíðast staldrar hún lengi við stelpurnar og hoppar svo á strákana
+    const gaps = []; for (let t = 95; t < 560; t *= 1.1) gaps.push(Math.round(t));
+    if (gaps.length % 2 === 0) gaps.push(600);
+    gaps.push(1250); // jafnmörg bil → oddatala af tikkum → endar á strákunum
+    let at = 2600;
+    for (let n = 0; n <= gaps.length; n++) {
+      const idx = n % 2, last = n === gaps.length;
+      tms.push(setTimeout(() => {
+        if (dead) return;
+        cards.forEach((c, j) => c.classList.toggle('lit', j === idx));
+        FX.sound.ping(idx ? 660 : 880);
+        if (last) tms.push(setTimeout(land, 450));
+      }, at));
+      at += gaps[n] || 0;
+    }
+    function land() {
+      if (dead) return;
+      LS.set('drawn', 'trollar'); LS.set('drawnAt', Date.now());
+      o.classList.add('landed'); cards[0].classList.add('win'); cards[1].classList.add('lose');
+      FX.sound.boom(); setTimeout(() => FX.sound.fanfare(), 250); FX.vibrate([60, 40, 60, 40, 200]);
+      $('.dr-title', o).textContent = 'Tröllaspæjararnir byrja!';
+      $('.dr-text', o).textContent = D.draw.result;
+      Voice.auto(D.draw.result, 1700);
+    }
   }
 
   /* ---------- Myndbönd í fullum skjá (iPhone portrait) ---------- */
   const VIDS = { trollar: ['210', '211', '212', '213', '214', '215'], runir: ['220', '221', '222', '223', '224', '225', '226'], finale: '230' };
-  const VV = '?v=1794654952';
+  const VV = '?v=1794656451';
   function vidSrc(id) { return `video/ok-${id}.mp4${VV}`; }
   function prefetchVid(id) { if (!id || settings().videos === false) return; try { fetch(vidSrc(id), { priority: 'low' }).catch(() => { }); } catch (e) { } }
   function playVideo(src, onEnd, opts = {}) {
@@ -195,8 +246,8 @@
   const Voice = (() => {
     let man = null, unlocked = false, timer = 0;
     const el = new Audio(); el.preload = 'auto'; el.setAttribute('playsinline', '');
-    fetch('audio/voice.json?v=1794654952').then(r => r.json()).then(j => { man = j; document.documentElement.classList.add('has-voice'); }).catch(() => { });
-    const src = t => man && man[t] ? 'audio/' + man[t] + '?v=1794654952' : null;
+    fetch('audio/voice.json?v=1794656451').then(r => r.json()).then(j => { man = j; document.documentElement.classList.add('has-voice'); }).catch(() => { });
+    const src = t => man && man[t] ? 'audio/' + man[t] + '?v=1794656451' : null;
     // iOS: opna hljóðið í fyrstu snertingu svo síðari upplestur virki sjálfkrafa
     const unlock = () => {
       if (unlocked) return; unlocked = true;
@@ -429,7 +480,7 @@
   }
 
   function trollPeek() {
-    const t = document.createElement('div'); t.className = 'peek'; t.innerHTML = `<img src="img/troll.webp?v=1794654952" alt=""><div class="bubble">Hehe!</div>`;
+    const t = document.createElement('div'); t.className = 'peek'; t.innerHTML = `<img src="img/troll.webp?v=1794656451" alt=""><div class="bubble">Hehe!</div>`;
     document.body.appendChild(t); setTimeout(() => t.remove(), 2200);
   }
 
@@ -621,7 +672,7 @@
   function toolSneak(el) {
     el.innerHTML = `
       <div class="sneak">
-        <div class="sn-troll"><img src="img/troll.webp?v=1794654952" alt=""><div class="zzz"><span>z</span><span>z</span><span>Z</span></div><div class="sn-wake">HVAÐ?!</div></div>
+        <div class="sn-troll"><img src="img/troll.webp?v=1794656451" alt=""><div class="zzz"><span>z</span><span>z</span><span>Z</span></div><div class="sn-wake">HVAÐ?!</div></div>
         <div class="sn-meter"><div class="sn-bar"></div><div class="sn-line"></div></div>
         <div class="sn-info">Hljóðmælirinn sýnir hvort Drumbur heyrir í ykkur.</div>
         <div class="sn-row"><button class="chip sn-mic">🎤 Hljóðmælir</button><button class="chip sn-snore">🔊 Hrotur</button></div>
@@ -674,7 +725,7 @@
         ${ph === 'travel' ? `
           <p class="story">${st.travel} ${speakBtn(st.travel)}</p>
           <button class="btn big arrive">Við erum komin að pottinum! 📍</button>` : `
-          <div class="chest"><img src="img/kista.webp?v=1794654952" alt=""><div class="chest-glow"></div></div>
+          <div class="chest"><img src="img/kista.webp?v=1794656451" alt=""><div class="chest-glow"></div></div>
           <div class="locks">
             <div class="lock ${team === 'trollar' ? 'mine' : ''}"><span class="lk-i">🔑</span><b>Lás Drumbs</b><small>${team === 'trollar' ? 'Þið eruð með lykilinn hans Drumbs!' : D.trollar.kidsNom + ' eru með lykil Drumbs'}</small></div>
             <div class="lock ${team === 'runir' ? 'mine' : ''}"><span class="lk-i">🗝️</span><b>Lás Ketils</b><small>${team === 'runir' ? 'Þið eruð með lykil Ketils!' : D.runir.kidsNom + ' eru með lykil Ketils'}</small></div>
@@ -741,14 +792,153 @@
     app.innerHTML = `
     <div class="screen celebrate">
       <div class="cel-title"><div class="runeline">ᛊᛁᛚᚠᚢᚱ ᛫ ᚠᚢᚾᛞᛁᛞ</div><h1 class="fraktur">Silfrið er fundið!</h1></div>
-      <div class="chest open"><img src="img/kista.webp?v=1794654952" alt=""><div class="chest-glow"></div></div>
-      <div class="letter"><img src="img/troll.webp?v=1794654952" alt="" class="letter-troll">${L.map(l => `<p>${l.replace(/\n/g, '<br>')}</p>`).join('')}</div>
+      <div class="chest open"><img src="img/kista.webp?v=1794656451" alt=""><div class="chest-glow"></div></div>
+      <div class="letter"><img src="img/troll.webp?v=1794656451" alt="" class="letter-troll">${L.map(l => `<p>${l.replace(/\n/g, '<br>')}</p>`).join('')}</div>
       <p class="sig cinzel">Og frá mér: takk, kæru Jóhann, Hólmar, Katrín og Aría. Draugarnir eru sofnaðir aftur og silfrið er ykkar.<br>ᛝ Ketill hængur</p>
       <button class="btn more">🎆 Meiri flugeldar!</button>
       <a class="btn ghost" href="#/">Heim</a>
     </div>`;
     Voice.auto(L.join(' ') + ' ' + 'Og frá mér: takk, kæru Jóhann, Hólmar, Katrín og Aría. Draugarnir eru sofnaðir aftur og silfrið er ykkar. ᛝ Ketill hængur', 2500);
     $('.more').addEventListener('click', () => { for (let i = 0; i < 5; i++) setTimeout(() => FX.firework(innerWidth * (.15 + Math.random() * .7), innerHeight * (.15 + Math.random() * .4)), i * 300); FX.coinRain(30); });
+  }
+
+  /* ================= LEYNIVERKEFNI RÚNAMEISTARANNA (inni á meðan strákarnir eru úti) ================= */
+  function renderBid() {
+    document.body.classList.add('theme-rune');
+    const B = D.bid, b = Object.assign({ garlic: false, morse: 0, go: false }, LS.get('bid', {}));
+    const save = () => LS.set('bid', b);
+    const TS = D.trollar.stations, on = TS.length;
+    const letters = Object.keys(MORSE);
+    app.innerHTML = `
+    <div class="screen station bid">
+      <a class="back" href="#/">‹</a>
+      <div class="bid-top"><div class="kicker">Rúnameistararnir · Katrín og Aría</div><h1 class="cinzel">🤫 Leyniverkefni</h1></div>
+      <section class="card"><p class="story">${B.intro} ${speakBtn(B.intro)}</p></section>
+      <section class="card bid-garlic">
+        <div class="kicker">Verkefni 1 af 3</div><h2 class="cinzel">🧄 Hvítlauksvörnin</h2>
+        <p class="story">${B.garlic} ${speakBtn(B.garlic)}</p>
+        <button class="btn big g-done"></button>
+      </section>
+      <section class="card bid-morse">
+        <div class="kicker">Verkefni 2 af 3</div><h2 class="cinzel">📡 Merkjaskóli Ketils</h2>
+        <p class="story">${B.morse} ${speakBtn(B.morse)}</p>
+        <div class="ms-prog"></div>
+        <div class="ms-play">
+          <div class="ms-lamp"></div>
+          <div class="mo-row"><button class="btn ms-show">▶ Sýna ljósið</button></div>
+          <div class="morse">
+            <div class="mo-out"><span class="mo-word"></span><span class="mo-cur"></span></div>
+            <button class="mo-key">PIKKA<br><small>stutt = · &nbsp; langt = —</small></button>
+            <div class="mo-row"><button class="chip mo-clear">Hreinsa</button><button class="chip ms-hint">💡 Vísbending</button></div>
+            <p class="ms-code hidden"></p>
+            <div class="mo-table">${letters.map(l => `<div data-l="${l}"><b>${l}</b><span>${MORSE[l].replace(/\./g, '·').replace(/-/g, '—')}</span></div>`).join('')}</div>
+          </div>
+        </div>
+        <p class="story ms-done hidden">${B.morseDone} ${speakBtn(B.morseDone)}</p>
+      </section>
+      <section class="card bid-spy">
+        <div class="kicker">Verkefni 3 af 3</div><h2 class="cinzel">🔭 Njósnaturninn</h2>
+        <p class="story">${B.spy} ${speakBtn(B.spy)}</p>
+        <ol class="spy-list">${TS.map((x, i) => `<li data-i="${i}"><span class="sp-i">${x.icon}</span><span class="sp-t">${x.title}</span><em></em></li>`).join('')}</ol>
+        <div class="other-status">📡 <span>Leita að Tröllaspæjurunum…</span></div>
+        <div class="spy-go hidden"><p class="story">${B.go} ${speakBtn(B.go)}</p><a class="btn big huge" href="#/lid/runir">Hefja leik Rúnameistaranna! 🗝️</a></div>
+        <button class="chip spy-manual">Leiðsögumaður: strákarnir eru komnir að pottinum</button>
+      </section>
+    </div>`;
+    wireSpeak(app); Voice.auto(B.intro, 700);
+
+    // 1. Hvítlaukur
+    const gb = $('.g-done');
+    const gState = () => { gb.textContent = b.garlic ? '✓ Festarnar eru tilbúnar' : 'Festarnar eru tilbúnar! 🧄'; $('.bid-garlic').classList.toggle('done', b.garlic); };
+    gState();
+    gb.addEventListener('click', () => {
+      if (b.garlic) return; b.garlic = true; save(); gState(); FX.sound.success(); toast('Draugarnir hörfa! 🧄');
+      setTimeout(() => { $('.bid-morse').scrollIntoView({ behavior: 'smooth', block: 'start' }); Voice.play(B.morse); }, 900);
+    });
+
+    // 2. Morse-skóli
+    const W = B.words, unit = 320, lamp = $('.ms-lamp'), out = $('.mo-word'), cur = $('.mo-cur'), key = $('.mo-key');
+    let playing = 0;
+    const stopLamp = () => { playing++; lamp.className = 'ms-lamp'; FX.beep(false); };
+    onCleanup(stopLamp);
+    const target = () => W[Math.min(b.morse, W.length - 1)];
+    const mState = () => {
+      const done = b.morse >= W.length;
+      $('.ms-prog').innerHTML = W.map((w, i) => `<span class="${i < b.morse ? 'ok' : i === b.morse ? 'cur' : ''}">${i < b.morse ? w : 'Orð ' + (i + 1)}</span>`).join('');
+      $('.ms-play').classList.toggle('hidden', done); $('.ms-done').classList.toggle('hidden', !done);
+      $('.ms-code').textContent = done ? '' : [...target()].map(ch => MORSE[ch].replace(/\./g, '·').replace(/-/g, '—')).join('   ');
+      $('.ms-code').classList.add('hidden');
+      out.textContent = ''; cur.textContent = '';
+    };
+    mState();
+    $('.ms-show').addEventListener('click', () => {
+      FX.sound.unlock(); Voice.stop(); stopLamp(); const my = playing;
+      const seq = morseSeq(target(), unit); let j = 0;
+      const step = () => {
+        if (my !== playing) return;
+        if (j >= seq.length) { lamp.className = 'ms-lamp'; FX.beep(false); return; }
+        const [st, ms] = seq[j++];
+        lamp.className = 'ms-lamp' + (st === 'r' ? ' red' : st ? ' on' : ''); FX.beep(st === 1);
+        setTimeout(step, ms);
+      };
+      step();
+    });
+    $('.ms-hint').addEventListener('click', () => $('.ms-code').classList.toggle('hidden'));
+    let down = 0, sym = '', timer = null;
+    const check = () => {
+      const t = target(), got = out.textContent;
+      if (got === t) {
+        b.morse++; save(); FX.sound.success();
+        if (b.morse >= W.length) { mState(); Voice.play(B.morseDone); setTimeout(() => $('.ms-done').scrollIntoView({ behavior: 'smooth', block: 'center' }), 300); }
+        else { toast(`Rétt! ${t} ✓ Næsta orð`, 2200); setTimeout(mState, 900); }
+      } else if (got.length >= t.length || !t.startsWith(got)) {
+        FX.sound.wrong(); $('.bid-morse').classList.add('shake'); setTimeout(() => $('.bid-morse').classList.remove('shake'), 500);
+        toast('Ekki alveg. Horfið aftur á ljósið!', 2200); setTimeout(() => { out.textContent = ''; }, 900);
+      }
+    };
+    const commit = () => {
+      if (!sym) return;
+      const l = MORSE_REV[sym] || '?'; out.textContent += l; sym = ''; cur.textContent = '';
+      $$('.bid .mo-table div').forEach(d => d.classList.toggle('hit', d.dataset.l === l));
+      check();
+    };
+    const press = e => { e.preventDefault(); FX.sound.unlock(); stopLamp(); down = performance.now(); clearTimeout(timer); key.classList.add('on'); FX.beep(true); };
+    const release = e => {
+      e.preventDefault(); if (!down) return;
+      const d = performance.now() - down; down = 0; key.classList.remove('on'); FX.beep(false);
+      sym += d < 550 ? '.' : '-'; cur.textContent = sym.replace(/\./g, '·').replace(/-/g, '—');
+      timer = setTimeout(commit, 1500);
+    };
+    key.addEventListener('pointerdown', press); key.addEventListener('pointerup', release); key.addEventListener('pointerleave', e => down && release(e));
+    key.addEventListener('contextmenu', e => e.preventDefault());
+    onCleanup(() => clearTimeout(timer));
+    $('.mo-clear').addEventListener('click', () => { out.textContent = ''; sym = ''; cur.textContent = ''; });
+
+    // 3. Njósnaturninn: hlustar á framvindu strákanna á rásinni
+    const os = $('.other-status span');
+    let lastAt = 0;
+    const mark = (i, ph) => $$('.spy-list li').forEach(li => {
+      const k = +li.dataset.i; const dn = k < i || (k === i && ph === 'done'), now = k === i && ph !== 'done';
+      li.classList.toggle('done', dn); li.classList.toggle('now', now); $('em', li).textContent = dn ? '✓' : now ? '👣' : '';
+    });
+    const goNow = quiet => {
+      if (!$('.spy-go').classList.contains('hidden')) return;
+      b.go = true; save(); mark(on - 1, 'arrived');
+      $('.spy-go').classList.remove('hidden'); const mb = $('.spy-manual'); if (mb) mb.remove();
+      os.textContent = 'Tröllaspæjararnir eru komnir að pottinum! 🎉';
+      if (!quiet) { FX.sound.fanfare(); FX.vibrate([80, 40, 80, 40, 200]); Voice.play(B.go); setTimeout(() => $('.spy-go').scrollIntoView({ behavior: 'smooth', block: 'center' }), 400); }
+    };
+    if (b.go) goNow(true);
+    const since = Math.floor((LS.get('drawnAt', 0) || Date.now() - 3 * 3600e3) / 1000) - 60;
+    const stopListen = Remote.listen(m => {
+      if (m.cmd !== 'progress' || m.team !== 'trollar' || (m.at || 0) < lastAt) return;
+      lastAt = m.at || 0;
+      if (m.i >= on - 1) return goNow(false);
+      mark(m.i, m.phase);
+      os.textContent = `Tröllaspæjararnir eru ${m.phase === 'done' ? 'búnir með' : 'á'} stöð ${m.i + 1} af ${on}: ${m.title}`;
+    }, ok => { if (lastAt || b.go) return; os.textContent = ok ? 'Tengt ✓ Bíð eftir fréttum af Tröllaspæjurunum…' : 'Ekkert samband við netið. Leiðsögumaðurinn lætur ykkur vita.'; }, since);
+    onCleanup(stopListen);
+    const mb = $('.spy-manual'); if (mb) mb.addEventListener('click', () => goNow(false));
   }
 
   /* ================= LJÓSVITINN (Morse í glugga) ================= */
@@ -920,7 +1110,8 @@
       { h: '2. Til heima', items: [
         'Kassi eða kista sem hægt er að læsa með tveimur hengilásum. Prófið báða lásana með lyklunum.',
         'Merkið lás og lykil Drumbs með D og lás og lykil Ketils með ᛝ (límband og tússpenni). Aukalyklarnir fara í vasa pabba.',
-        'Hvítlauksrif á bandi fyrir hvert barn („hvítlaukur Ketils“), gefið í upphafi leiks.',
+        'Hvítlauksrif á bandi fyrir strákana tvo („hvítlaukur Ketils“), gefið í upphafi leiks.',
+        'Fyrir stelpurnar: 3 hvítlauksrif og band á borð inni í húsinu. Þær búa festarnar til sjálfar (fyrir sig og leiðsögumanninn) á meðan strákarnir eru úti.',
         'Stór ullarsokkur (tröllasokkurinn). Ef hinn sokkurinn úr parinu er til fer hann í bæli Drumbs.',
         'Teppi eða sæng í bæli Drumbs og dökkt teppi eða handklæði yfir kistuna',
         'Krukka með loki og tóm flaska með tappa + snæri',
@@ -938,7 +1129,7 @@
       { h: '4. Símarnir', items: [
         'Hlaðið símana og spjaldtölvuna. Hljóðið í botn og slökkt á þöggunartakkanum.',
         'Stillingar: litur í trjánum og fjöldi ljósastafa í gestahúsinu verða að passa við það sem þið felið. Skráið stað steinsins við rústina (Tröllaratsjáin).',
-        'Sendið svo stillingahlekkinn í síma beggja liða og ljósvitann (Stillingar › Senda stillingar).',
+        'Stillingarnar fara sjálfkrafa í öll tækin þegar þið vistið. Opnið síðuna einu sinni í hverju tæki (báðum símum og ljósvitanum) eftir að þið vistið.',
         'Opnið leikinn í síma hvors liðs og leyfið hljóðnema, staðsetningu og hreyfiskynjara þegar spurt er.'
       ] },
       { h: '5. Tröllaspæjararnir (felið kl. 14:30–15:30)', items: [
@@ -964,9 +1155,10 @@
       ] },
       { h: '8. Í leiknum', items: [
         'Allir horfa saman á upphafsmyndbandið (Sagan hefst á forsíðunni).',
-        'Rúnameistararnir byrja fyrst. Leið þeirra er miklu lengri (um 70–90 mín.) en leið strákanna (um 35–45 mín.).',
-        'Tröllaspæjararnir byrja þegar fjarstýringin sýnir að stelpurnar eru komnar á rústina (um 20–30 mín. síðar). Á meðan klæða strákarnir sig, skoða Eftirlýstur og fá skírteinin.',
-        'Liðið sem kemur fyrr að pottinum sér í símanum hvar hitt liðið er. Ef biðin verður löng má fara inn í hlýjuna og koma aftur þegar hitt liðið er á leiðinni.',
+        'Svo „Hver byrjar?“ á forsíðunni. Það lítur út eins og tilviljun en Tröllaspæjararnir byrja alltaf.',
+        'Strákarnir fara fyrst út með leiðsögumanninum (um 35–45 mín.). Stelpurnar opna Leyniverkefnin í sínum síma: hvítlauksfestar, Morse-skóli og njósnaturn sem sýnir hvar strákarnir eru.',
+        'Þegar strákarnir ýta á „Við erum komin að pottinum“ fær sími stelpnanna merki og þær hefja leik. Strákarnir passa kistuna smástund og fara svo inn með lykil Drumbs. Fullorðinn þarf að vera inni hjá þeim.',
+        'Stelpurnar fara út með leiðsögumanninum (um 70–90 mín.). Þegar þær koma að pottinum hringir sími strákanna og þeir koma út með lykilinn.',
         'Við kistuna: horfið saman á lokamyndbandið í einum síma og ýtið á Sleppa í hinum.'
       ] },
       { h: '9. Öryggi', items: [
