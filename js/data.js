@@ -68,7 +68,7 @@ window.RATLEIKUR = {
     pallur:   { x: 958,  y: 326, label: 'Útsýnispallurinn' },
     rust:     { x: 1122, y: 588, label: 'Rústin' },
     baeli:    { x: 1102, y: 428, label: 'Bæli Drumbs' },
-    kjarr:    { x: 486,  y: 548, label: 'Kjarrið' },
+    kjarr:    { x: 486,  y: 548, label: 'Grænmetisgarðurinn', nomap: true },
     hringur:  { x: 680,  y: 690, label: 'Ljósahringurinn' }
   },
 
@@ -81,7 +81,7 @@ window.RATLEIKUR = {
     kids: ['Jóhann', 'Hólmar'],
     kidsNom: 'Jóhann og Hólmar',
     kidsDat: 'Jóhanni og Hólmari',
-    image: 'img/troll.webp?v=1794656847',
+    image: 'img/troll.webp?v=1794676367',
     theme: 'troll',
     intro: [
       'Hæ, Jóhann og Hólmar!',
@@ -131,14 +131,14 @@ window.RATLEIKUR = {
         task: 'Álfarnir urðu reiðir við Drumb og földu sig í myrkrinu. Lýsið með fingrinum á skjáinn og finnið alla fjóra álfana! Þá segja þeir ykkur hvar gjöfin þeirra er.',
         game: 'flashlight', gameOpts: { count: 4, emoji: '🧝' },
         gameWin: 'Álfarnir hvísla: „Gjöfin okkar er falin á bak við álfahúsið.“ Kíkið! Hvað gáfu álfarnir ykkur?',
-        hint: 'Það glóir og maður setur það á úlnliðinn.',
-        success: 'Glóandi álfaarmbönd! Setjið þau á ykkur. Þá sér Drumbur að þið eruð vinir álfanna.',
-        answer: { kind: 'pick', correct: 'armband', options: [
+        hint: 'Það glóir og galdrakarlar veifa því.',
+        success: 'Glóandi álfasprotar! Haldið á þeim og veifið. Þá sér Drumbur að þið eruð vinir álfanna.',
+        answer: { kind: 'pick', correct: 'sproti', options: [
           { v: 'koróna', e: '👑', t: 'Kóróna' },
           { v: 'bjalla', e: '🔔', t: 'Bjalla' },
-          { v: 'armband', e: '📿', t: 'Armband' },
+          { v: 'sproti', e: '🪄', t: 'Töfrasproti' },
           { v: 'bangsi', e: '🧸', t: 'Bangsi' } ] },
-        item: '📿'
+        item: '🪄'
       },
       {
         place: 'rust', title: 'Rústin', icon: '🪨', tool: 'radar', toolAfterGame: true,
@@ -186,7 +186,7 @@ window.RATLEIKUR = {
     kids: ['Katrín', 'Aría'],
     kidsNom: 'Katrín og Aría',
     kidsDat: 'Katrínu og Aríu',
-    image: 'img/ketill.webp?v=1794656847',
+    image: 'img/ketill.webp?v=1794676367',
     theme: 'rune',
     intro: [
       'Katrín og Aría, rúnameistarar!',
@@ -226,9 +226,9 @@ window.RATLEIKUR = {
         answer: { kind: 'digit' }
       },
       {
-        place: 'kjarr', title: 'Kjarrið', icon: '🌿', tool: 'keyonly',
-        travel: 'Ketill átti leynistað í kjarrinu vestast á jörðinni. Haldið áfram í vestur. Það er löng leið í myrkrinu. Haldið hópinn og lýsið með vasaljósunum á runnana í jaðri kjarrsins! En bíðið… heyrið þið hvíslið á milli runnanna? Draugur! Haldið hvítlauknum hátt upp og teljið saman upp að þremur… Hann flúði. Áfram!',
-        task: 'Lýsið á runnana með vasaljósunum. Sjáið þið miðana? Þeir eru ellefu og á hverjum þeirra er einn stafur. Tínið ALLA miðana úr kjarrinu og komið með þá hingað. En Drumbur hengdi líka upp gildrur! Galdur Ketils segir ykkur hvaða miðar eru réttir. Haldið símanum flötum á milli ykkar og standið hvor á móti annarri. Önnur sér rúnirnar og hin hefur takkana. Þið verðið að tala saman!',
+        place: 'kjarr', title: 'Grænmetisgarðurinn', icon: '🥕', tool: 'keyonly',
+        travel: 'Ketill átti leynistað í grænmetisgarðinum. Farið þangað og haldið hópinn í myrkrinu. Lýsið með vasaljósunum yfir garðinn! En bíðið… heyrið þið hvíslið á milli beðanna? Draugur! Haldið hvítlauknum hátt upp og teljið saman upp að þremur… Hann flúði. Áfram!',
+        task: 'Lýsið yfir grænmetisgarðinn með vasaljósunum. Sjáið þið miðana? Þeir eru ellefu og á hverjum þeirra er einn stafur. Tínið ALLA miðana úr garðinum og komið með þá hingað. En Drumbur hengdi líka upp gildrur! Galdur Ketils segir ykkur hvaða miðar eru réttir. Haldið símanum flötum á milli ykkar og standið hvor á móti annarri. Önnur sér rúnirnar og hin hefur takkana. Þið verðið að tala saman!',
         game: 'duet', gameOpts: { names: ['Katrín', 'Aría'] },
         gameWin: 'Galdurinn virkaði! Miðarnir sem bera merki Ketils, ᛝ, eru réttir. Miðarnir með ᛞ eru gildrur frá Drumbi. Leggið þá til hliðar! Raðið svo stöfunum á réttu miðunum í eitt orð. Hvert eigið þið að fara næst?',
         hint: 'Það er kringlótt og hefur hvorki upphaf né endi.',

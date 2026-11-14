@@ -4,7 +4,7 @@
 <meta charset="utf-8">
 <meta name="viewport" content="width=device-width, initial-scale=1">
 <title>Svarblað · Silfur Ketils hængs</title>
-<link rel="stylesheet" href="css/fonts.css?v=1794656847">
+<link rel="stylesheet" href="css/fonts.css?v=1794676367">
 <style>
   @page { size: A4 portrait; margin: 0; }
   * { box-sizing: border-box; -webkit-print-color-adjust: exact; print-color-adjust: exact; }
@@ -44,7 +44,7 @@
 <body>
 <div class="toolbar"><a href="./#/hq">‹ Til baka</a><button onclick="window.print()">🖨️ Prenta</button><span>Svarblað fyrir fullorðna · ein A4 síða</span></div>
 <div class="page" id="p"></div>
-<script src="js/data.js?v=1794656847"></script>
+<script src="js/data.js?v=1794676367"></script>
 <script>
 (function () {
   const D = window.RATLEIKUR;
@@ -69,7 +69,7 @@
     row(1, '<b>Forstofan</b>aðalhúsið', 'Leita að því sem Drumbur týndi. Velja rétta mynd í appinu.', '<span class="ans">Sokkur</span> 🧦 (risastór ullarsokkur í forstofunni)'),
     row(2, '<b>Gestahúsið</b>', 'Slökkva ljósin, finna glóandi tröllasteina (ljósastafi) og telja þá.', `<span class="ans big">${S.glowCount}</span> ljósastafir`),
     row(3, '<b>Trén</b>hjá pottinum', 'Lýsa upp í greinarnar og segja hvernig tröllaljósin eru á litinn.', `<span class="ans">${col}</span>`),
-    row(4, '<b>Álfahúsið</b>', 'Leikur: lýsa með fingri á skjáinn og finna 4 álfa. Svo sækja gjöfina á bak við álfahúsið.', '<span class="ans">Armband</span> 📿 (bleiku glóarmböndin á bak við álfahúsið)'),
+    row(4, '<b>Álfahúsið</b>', 'Leikur: lýsa með fingri á skjáinn og finna 4 álfa. Svo sækja gjöfina á bak við álfahúsið.', '<span class="ans">Töfrasproti</span> 🪄 (bleiku ljósastafirnir á bak við álfahúsið)'),
     row(5, '<b>Rústin</b>steinahrúgan', 'Leikur: báðir halda fingri á skjánum í einu og „velta steininum“. Þá opnast tröllaratsjáin: ganga hægt um rústina, pípið hraðar nær. Finna stein með andliti.', '<span class="ans">Steinn</span> 🪨 Steini litli. Ratsjáin virkar bara ef staðsetningin var skráð í HQ. Annars segir fullorðinn „heitt/kalt“.'),
     row(6, '<b>Bæli Drumbs</b>hjá stóra húsinu', 'Læðast hljóðlega (hljóðmælir í símanum). Við bælið: hrista símann = töfraljós. Taka það sem Drumbur heldur á.', '<span class="ans">Lykill</span> 🔑 lykill Drumbs (lás <b>D</b>)'),
     row(7, '<b>Heiti potturinn</b>', 'Lýsa á litlu draugana við kistuna og fara svo inn með lykilinn. Síminn hringir þegar stelpurnar koma að pottinum.', 'Opna lás D þegar báðir lyklarnir eru komnir.')
@@ -78,7 +78,7 @@
     row(1, '<b>Bréf Ketils</b>í appinu', 'Lesa rúnaskilaboð í appinu með rúnalyklinum og skrifa svarið.', '<span class="ans">SPEGILLINN Í LITLA HÚSINU</span> (nóg að skrifa „spegil“)'),
     row(2, '<b>Gestahúsið</b>spegillinn', 'Miði 1 hangir á speglinum, rúnir í spegilskrift. Halda miðanum upp að speglinum og lesa.', `FYRSTA TALAN ER ${W(L[0])} → <span class="ans big">${L[0]}</span>`),
     row(3, '<b>Rústin</b>→ krukkan', `Áttaviti: ${S.compassSteps} skref í ${dir} frá rústinni að krukku merktri ᛝ. Miði 2 á dulmáli. Hjól Ketils: ytra A yfir innra D, lesa ytri stafinn.`, `<span class="code">${CAESAR('ÖNNUR TALAN ER ' + W(L[1]), 3)}</span><br>= ÖNNUR TALAN ER ${W(L[1])} → <span class="ans big">${L[1]}</span>`),
-    row(4, '<b>Kjarrið</b>vestast', 'Tína ALLA 11 miðana (lýsa með vasaljósum). Leikur í pörum: önnur sér rúnirnar, hin ýtir á takkana. Svo henda miðum með ᛞ og raða miðum með ᛝ í orð.', '7 réttir (ᛝ): H R I N G U R<br>4 gildrur (ᛞ): S T L Á<br><span class="ans">HRINGUR</span>'),
+    row(4, '<b>Grænmetisgarðurinn</b>', 'Tína ALLA 11 miðana (lýsa með vasaljósum). Leikur í pörum: önnur sér rúnirnar, hin ýtir á takkana. Svo henda miðum með ᛞ og raða miðum með ᛝ í orð.', '7 réttir (ᛝ): H R I N G U R<br>4 gildrur (ᛞ): S T L Á<br><span class="ans">HRINGUR</span>'),
     row(5, '<b>Ljósahringurinn</b>í móunum', `Finna flöskuskeyti í miðjum hringnum (miði 3). Leikur: herma eftir röð rúnasteina (5 tónar). Svara gátunni: „${riddle}“`, `<span class="ans big">${L[2]}</span>`),
     row(6, '<b>Útsýnispallurinn</b>', 'Horfa á gluggann á húsinu. Ljósvitinn blikkar Morse eftir RAUÐA ljósið. Stutt = punktur, langt = strik.', `<span class="ans">${W(L[3])}</span> → <span class="ans big">${L[3]}</span><br>${MO(W(L[3]))}<br>Sjá „Ljósvitinn“ neðst.`),
     row(7, '<b>Rúnalásinn</b>á pallinum', 'Leikur: rúlla silfurpeningi í gegnum völundarhús. Slá svo inn kóðann. Ketill segir hvar lykillinn er.', `Kóði <span class="ans big">${L.join(' ')}</span><br>Lykill Ketils er ${S.girlsKeyPlace} (lás <b>ᛝ</b>)`),

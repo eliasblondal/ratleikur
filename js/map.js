@@ -181,7 +181,7 @@
   <!-- hér eru tröll -->
   <g class="trolls" transform="translate(${print ? '820,1040' : '470,250'})">
     <circle r="66" fill="#e9d7a8" stroke="${INK}" stroke-width="2"/>
-    <image href="img/troll.webp?v=1794656847" x="-62" y="-75" width="124" height="166" clip-path="url(#trollClip)" preserveAspectRatio="xMidYMid slice" style="filter:sepia(.85) contrast(1.1) brightness(.95)"/>
+    <image href="img/troll.webp?v=1794676367" x="-62" y="-75" width="124" height="166" clip-path="url(#trollClip)" preserveAspectRatio="xMidYMid slice" style="filter:sepia(.85) contrast(1.1) brightness(.95)"/>
     <circle r="62" fill="none" stroke="${INK}" stroke-width="1.2"/>
     <text y="98" class="lbl lbl-sm hic">Hér eru tröll</text>
   </g>
@@ -250,8 +250,11 @@
         ${label ? `<text class="mk-lbl" y="-20">${label}</text>` : ''}</g>`;
     }
     function render(state, opts = {}) {
+      const ok = k => k && D.places[k] && !D.places[k].nomap;
+      state = Object.assign({}, state, { done: (state.done || []).filter(ok), target: ok(state.target) ? state.target : null, prev: ok(state.prev) ? state.prev : null });
+      if (!state.target && !state.prev) opts = Object.assign({}, opts, { overview: true });
       const keys = [...new Set([...(state.done || []), state.target, state.prev].filter(Boolean))];
-      const box = boxFor([state.target, state.prev].filter(Boolean));
+      const box = (state.target || state.prev) ? boxFor([state.target, state.prev].filter(Boolean)) : { w: 1040, near: false };
       const sc = box.near ? 0.3 : box.w / 520;
       holes.innerHTML = keys.map(k => { const p = D.places[k]; return `<circle cx="${p.x}" cy="${p.y}" r="${k === state.target ? 170 : 130}" fill="black" filter="url(#holeBlur)"/>`; }).join('')
         + `<circle cx="1050" cy="380" r="150" fill="black" filter="url(#holeBlur)"/>`;
