@@ -181,7 +181,7 @@
   <!-- hér eru tröll -->
   <g class="trolls" transform="translate(${print ? '820,1040' : '470,250'})">
     <circle r="66" fill="#e9d7a8" stroke="${INK}" stroke-width="2"/>
-    <image href="img/troll.webp?v=1794656451" x="-62" y="-75" width="124" height="166" clip-path="url(#trollClip)" preserveAspectRatio="xMidYMid slice" style="filter:sepia(.85) contrast(1.1) brightness(.95)"/>
+    <image href="img/troll.webp?v=1794656847" x="-62" y="-75" width="124" height="166" clip-path="url(#trollClip)" preserveAspectRatio="xMidYMid slice" style="filter:sepia(.85) contrast(1.1) brightness(.95)"/>
     <circle r="62" fill="none" stroke="${INK}" stroke-width="1.2"/>
     <text y="98" class="lbl lbl-sm hic">Hér eru tröll</text>
   </g>
